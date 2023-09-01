@@ -1,0 +1,26 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.unla.chefencasagrpc.grpc";
+
+import "categoria.proto";
+
+service receta{
+	rpc crearReceta(RecetaRequest) returns (RecetaResponse);
+
+}
+
+message RecetaRequest{
+	string titulo = 1;
+	string descripcion = 2;
+	int32 tiempo_preparacion = 3;
+	Categoria categoria = 4;
+}
+
+message Categoria{
+	int32 id = 1;
+	string descripcion = 2;
+}
+
+message RecetaResponse{
+  string message = 1;
+}
