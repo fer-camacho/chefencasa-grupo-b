@@ -2,15 +2,12 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.unla.chefencasagrpc.grpc";
 
-service Ingrediente{
-	rpc CrearIngrediente(IngredienteRequest) returns (IngredienteResponse);
+import "common.proto";
 
+service Ingrediente{
+	rpc CrearIngrediente(IngredienteRequest) returns (Response);
 }
 
 message IngredienteRequest{
 	string descripcion = 1;
-}
-
-message IngredienteResponse{
-  string message = 1;
 }
