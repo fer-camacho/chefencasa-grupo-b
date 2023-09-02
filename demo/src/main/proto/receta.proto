@@ -3,10 +3,9 @@ option java_multiple_files = true;
 option java_package = "com.unla.chefencasagrpc.grpc";
 
 import "categoria.proto";
-import "common.proto";
 
 service receta{
-	rpc crearReceta(RecetaRequest) returns (Response);
+	rpc crearReceta(RecetaRequest) returns (RecetaResponse);
 
 }
 
@@ -15,4 +14,8 @@ message RecetaRequest{
 	string descripcion = 2;
 	int32 tiempo_preparacion = 3;
 	CategoriaRequest categoria = 4;
+}
+
+message RecetaResponse{
+	string message = 1;
 }

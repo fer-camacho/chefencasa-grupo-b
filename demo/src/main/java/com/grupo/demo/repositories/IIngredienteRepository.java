@@ -11,13 +11,11 @@ import java.util.List;
 @Repository("ingredienteRepository")
 public interface IIngredienteRepository extends JpaRepository<Ingrediente, Serializable>{
 
-        @SuppressWarnings("unchecked")
-        public Ingrediente save(Ingrediente ingrediente);
-
+    @SuppressWarnings("unchecked")
+        Ingrediente save(Ingrediente ingrediente);
         @Query(nativeQuery=true,value="Select * from ingrediente")
-        public List<Categoria> traerTodos();
-
+        public List<Ingrediente> traerTodos();
         public abstract Ingrediente findByDescripcion(String descripcion);
         public abstract Ingrediente findById(int id);
-    }
+
 }

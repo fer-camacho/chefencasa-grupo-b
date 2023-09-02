@@ -2,13 +2,15 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.unla.chefencasagrpc.grpc";
 
-import "common.proto";
-
 service Categoria{
-	rpc CrearCategoria(CategoriaRequest) returns (Response);
+	rpc CrearCategoria(CategoriaRequest) returns (CategoriaResponse);
 
 }
 
 message CategoriaRequest{
 	string descripcion = 1;
+}
+
+message CategoriaResponse{
+	string message = 1;
 }

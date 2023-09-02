@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09ff5763-e3ac-47b1-ae57-eb7fa1f38fc8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/repositories/IIngredienteRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/proto/common.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/repositories/IUsuarioRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/CategoriaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/IngredienteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/RecetaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/UsuarioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/proto/usuario.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/CategoriaService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/services/grpc/GrpcCategoriaService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/proto/Receta.proto" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/proto/Receta.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/repositories/IIngredienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/grupo/demo/repositories/IIngredienteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/proto/Receta.proto" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/proto/receta.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/proto/categoria.proto" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/proto/categoria.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/proto/common.proto" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/proto/ingrediente.proto" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/proto/ingrediente.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +48,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -68,20 +73,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;desarrollo-pablo&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/pablo/Documents/GitHub/chefencasa-grupo-b/demo/src/main/proto&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "desarrollo-pablo",
+    "last_opened_file_path": "C:/Users/pablo/Documents/GitHub/chefencasa-grupo-b/demo/src/main/proto",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pablo\Documents\GitHub\chefencasa-grupo-b\demo\src\main\proto" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pablo\Documents\GitHub\chefencasa-grupo-b\demo\src\main\java\com\grupo\demo\repositories" />
+      <recent name="C:\Users\pablo\Documents\GitHub\chefencasa-grupo-b\bin\com\grupo\demo\repositories" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.demo [generateProto]">
