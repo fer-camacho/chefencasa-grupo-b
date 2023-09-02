@@ -26,4 +26,3 @@ public class CategoriaService {
 		return ResponseEntity.status(HttpStatus.CREATED).body("La categoria fue agregada correcatamente");
 	}
 }
-

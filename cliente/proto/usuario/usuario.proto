@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service usuario{
+  rpc crearUsuario(UsuarioRequest) returns (ResponseUsuario);
+}
+
+message UsuarioRequest{
+  string nombre = 1;
+  string email = 2;
+  string usuario = 3;
+  string password = 4;
+}
+
+message ResponseUsuario{
+  string message = 1;
+}
