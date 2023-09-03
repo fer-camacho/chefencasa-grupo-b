@@ -19,12 +19,34 @@ class usuarioStub(object):
                 request_serializer=usuario__pb2.UsuarioRequest.SerializeToString,
                 response_deserializer=usuario__pb2.ResponseUsuario.FromString,
                 )
+        self.traerUsuarioPorId = channel.unary_unary(
+                '/usuario/traerUsuarioPorId',
+                request_serializer=usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseUsuarioObj.FromString,
+                )
+        self.traerUsuarioPorNombre = channel.unary_unary(
+                '/usuario/traerUsuarioPorNombre',
+                request_serializer=usuario__pb2.UsuarioPorNombreRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseUsuarioObj.FromString,
+                )
 
 
 class usuarioServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def crearUsuario(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def traerUsuarioPorId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def traerUsuarioPorNombre(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +59,16 @@ def add_usuarioServicer_to_server(servicer, server):
                     servicer.crearUsuario,
                     request_deserializer=usuario__pb2.UsuarioRequest.FromString,
                     response_serializer=usuario__pb2.ResponseUsuario.SerializeToString,
+            ),
+            'traerUsuarioPorId': grpc.unary_unary_rpc_method_handler(
+                    servicer.traerUsuarioPorId,
+                    request_deserializer=usuario__pb2.UsuarioPorIdRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseUsuarioObj.SerializeToString,
+            ),
+            'traerUsuarioPorNombre': grpc.unary_unary_rpc_method_handler(
+                    servicer.traerUsuarioPorNombre,
+                    request_deserializer=usuario__pb2.UsuarioPorNombreRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseUsuarioObj.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +94,39 @@ class usuario(object):
         return grpc.experimental.unary_unary(request, target, '/usuario/crearUsuario',
             usuario__pb2.UsuarioRequest.SerializeToString,
             usuario__pb2.ResponseUsuario.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def traerUsuarioPorId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/usuario/traerUsuarioPorId',
+            usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+            usuario__pb2.ResponseUsuarioObj.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def traerUsuarioPorNombre(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/usuario/traerUsuarioPorNombre',
+            usuario__pb2.UsuarioPorNombreRequest.SerializeToString,
+            usuario__pb2.ResponseUsuarioObj.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -23,4 +23,10 @@ class UsuarioCliente(object):
         )
         return self.stub.crearUsuario(usuarioCreado)
     
+    def traerUsuarioPorId(self, user):
+        usuarioEncontrado = service_pb2.UsuarioPorIdRequest(
+            id = user['id']
+        )
+        return self.stub.traerUsuarioPorId(usuarioEncontrado)
+
 UsuarioCliente()

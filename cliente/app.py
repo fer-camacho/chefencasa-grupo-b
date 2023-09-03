@@ -20,5 +20,14 @@ def saveProduct():
     result = user.crearUsuario(request.json)
     return MessageToJson(result)
 
+
+@app.route('/traerUsuarioPorId', methods=['GET'])
+@cross_origin()
+def findUserByUsername():
+    user = UsuarioCliente()
+    result = user.traerUsuarioPorId(request.json)
+    return MessageToJson(result)
+
+
 if __name__ == '__main__':
     app.run()

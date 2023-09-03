@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rusuario.proto\"R\n\x0eUsuarioRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x0f\n\x07usuario\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"\"\n\x0fResponseUsuario\x12\x0f\n\x07message\x18\x01 \x01(\t2<\n\x07usuario\x12\x31\n\x0c\x63rearUsuario\x12\x0f.UsuarioRequest\x1a\x10.ResponseUsuariob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rusuario.proto\"R\n\x0eUsuarioRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x0f\n\x07usuario\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"\"\n\x0fResponseUsuario\x12\x0f\n\x07message\x18\x01 \x01(\t\"!\n\x13UsuarioPorIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"]\n\rUsuarioObject\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06nombre\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x0f\n\x07usuario\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"^\n\x12ResponseUsuarioObj\x12%\n\rusuarioObject\x18\x01 \x01(\x0b\x32\x0e.UsuarioObject\x12!\n\x07mensaje\x18\x02 \x01(\x0b\x32\x10.ResponseUsuario\")\n\x17UsuarioPorNombreRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t2\xc4\x01\n\x07usuario\x12\x31\n\x0c\x63rearUsuario\x12\x0f.UsuarioRequest\x1a\x10.ResponseUsuario\x12>\n\x11traerUsuarioPorId\x12\x14.UsuarioPorIdRequest\x1a\x13.ResponseUsuarioObj\x12\x46\n\x15traerUsuarioPorNombre\x12\x18.UsuarioPorNombreRequest\x1a\x13.ResponseUsuarioObjB \n\x1c\x63om.unla.chefencasagrpc.grpcP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,10 +21,19 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'usuario_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\n\034com.unla.chefencasagrpc.grpcP\001'
   _globals['_USUARIOREQUEST']._serialized_start=17
   _globals['_USUARIOREQUEST']._serialized_end=99
   _globals['_RESPONSEUSUARIO']._serialized_start=101
   _globals['_RESPONSEUSUARIO']._serialized_end=135
-  _globals['_USUARIO']._serialized_start=137
-  _globals['_USUARIO']._serialized_end=197
+  _globals['_USUARIOPORIDREQUEST']._serialized_start=137
+  _globals['_USUARIOPORIDREQUEST']._serialized_end=170
+  _globals['_USUARIOOBJECT']._serialized_start=172
+  _globals['_USUARIOOBJECT']._serialized_end=265
+  _globals['_RESPONSEUSUARIOOBJ']._serialized_start=267
+  _globals['_RESPONSEUSUARIOOBJ']._serialized_end=361
+  _globals['_USUARIOPORNOMBREREQUEST']._serialized_start=363
+  _globals['_USUARIOPORNOMBREREQUEST']._serialized_end=404
+  _globals['_USUARIO']._serialized_start=407
+  _globals['_USUARIO']._serialized_end=603
 # @@protoc_insertion_point(module_scope)
