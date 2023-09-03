@@ -2,7 +2,6 @@ package com.grupo.demo.services.grpc;
 
 import com.grupo.demo.dtos.CategoriaDTO;
 import com.grupo.demo.services.CategoriaService;
-import com.unla.chefencasagrpc.grpc.categoriaGrpc;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
