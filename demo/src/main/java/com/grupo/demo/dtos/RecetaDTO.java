@@ -1,5 +1,6 @@
 package com.grupo.demo.dtos;
 
+import java.util.List;
 import java.util.Set;
 
 public class RecetaDTO {
@@ -8,10 +9,10 @@ public class RecetaDTO {
 	private String titulo;
 	private String descripcion;
 	private int tiempo_preparacion;
-	private CategoriaDTO categoria;
-	private Set<PasoDTO> pasos;
-	private Set<FotoDTO> fotos;
-	private Set<IngredienteDTO> ingredientes;
+	private String categoria;
+	private Set<String> pasos;
+	private Set<String> fotos;
+	private Set<String> ingredientes;
 	
 	public RecetaDTO() {
 		super();
@@ -25,30 +26,15 @@ public class RecetaDTO {
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, CategoriaDTO categoria) {
-		super();
+	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
 		this.categoria = categoria;
-	}
-	
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, CategoriaDTO categoria,
-			Set<PasoDTO> pasos, Set<FotoDTO> fotos) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descripcion = descripcion;
-		this.tiempo_preparacion = tiempo_preparacion;
-		this.categoria = categoria;
-		this.pasos = pasos;
-		this.fotos = fotos;
 	}
 
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, CategoriaDTO categoria,
-			Set<PasoDTO> pasos, Set<FotoDTO> fotos, Set<IngredienteDTO> ingredientes) {
-		super();
+	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -91,36 +77,35 @@ public class RecetaDTO {
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
-	public CategoriaDTO getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaDTO categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
-	public Set<PasoDTO> getPasos() {
+	public Set<String> getPasos() {
 		return pasos;
 	}
 
-	public void setPasos(Set<PasoDTO> pasos) {
+	public void setPasos(Set<String> pasos) {
 		this.pasos = pasos;
 	}
 
-	public Set<FotoDTO> getFotos() {
+	public Set<String> getFotos() {
 		return fotos;
 	}
 
-	public void setFotos(Set<FotoDTO> fotos) {
+	public void setFotos(Set<String> fotos) {
 		this.fotos = fotos;
 	}
 
-	public Set<IngredienteDTO> getIngredientes() {
+	public Set<String> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Set<IngredienteDTO> ingredientes) {
+	public void setIngredientes(Set<String> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
-	
 }

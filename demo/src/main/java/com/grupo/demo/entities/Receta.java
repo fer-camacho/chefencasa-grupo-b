@@ -1,20 +1,12 @@
 package com.grupo.demo.entities;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="receta")
@@ -32,65 +24,37 @@ public class Receta {
 	
 	@Column(name="tiempo_preparacion", nullable = false)
 	protected int tiempo_preparacion;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_categoria", nullable=false)
-	private Categoria categoria;
-	
-	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="receta")
-	private Set<Paso> pasos;
-	
-	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="receta")
-	private Set<Foto> fotos;
-	
-	@ManyToMany
-	@JoinTable(
-	  name = "receta_x_ingrediente", 
-	  joinColumns = @JoinColumn(name = "id_receta"), 
-	  inverseJoinColumns = @JoinColumn(name = "id_ingrediente"))
-	private Set<Ingrediente> ingredientes;
-	
-	/*@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="receta")
-	private Set<Usuario> usuarios;
-*/
+
+	@JoinColumn(name="categoria", nullable=false)
+	private String categoria;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<String> pasos;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<String> fotos;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<String> ingredientes;
+
 	public Receta() {
-		super();
 	}
 
 	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion) {
-		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, Categoria categoria) {
-		super();
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
 		this.categoria = categoria;
 	}
-	
-	
 
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, Categoria categoria,
-			Set<Paso> pasos, Set<Foto> fotos) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descripcion = descripcion;
-		this.tiempo_preparacion = tiempo_preparacion;
-		this.categoria = categoria;
-		this.pasos = pasos;
-		this.fotos = fotos;
-	}
-	
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, Categoria categoria,
-			Set<Paso> pasos, Set<Foto> fotos, Set<Ingrediente> ingredientes) {
-		super();
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -100,21 +64,6 @@ public class Receta {
 		this.fotos = fotos;
 		this.ingredientes = ingredientes;
 	}
-
-/*
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, Categoria categoria,
-			Set<Paso> pasos, Set<Foto> fotos, Set<Ingrediente> ingredientes, Set<Usuario> usuarios) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descripcion = descripcion;
-		this.tiempo_preparacion = tiempo_preparacion;
-		this.categoria = categoria;
-		this.pasos = pasos;
-		this.fotos = fotos;
-		this.ingredientes = ingredientes;
-		this.usuarios = usuarios;
-	}*/
 
 	public int getId() {
 		return id;
@@ -148,45 +97,35 @@ public class Receta {
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
-	public Categoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
-	public Set<Paso> getPasos() {
+	public Set<String> getPasos() {
 		return pasos;
 	}
 
-	public void setPasos(Set<Paso> pasos) {
+	public void setPasos(Set<String> pasos) {
 		this.pasos = pasos;
 	}
 
-	public Set<Ingrediente> getIngredientes() {
-		return ingredientes;
-	}
-
-	public void setIngredientes(Set<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
-	}
-/*
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-*/
-	public Set<Foto> getFotos() {
+	public Set<String> getFotos() {
 		return fotos;
 	}
 
-	public void setFotos(Set<Foto> fotos) {
+	public void setFotos(Set<String> fotos) {
 		this.fotos = fotos;
 	}
 
-	
+	public Set<String> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(Set<String> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
 }

@@ -1,0 +1,74 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.unla.chefencasagrpc.grpc";
+
+service receta{
+  rpc crearReceta(RecetaRequest) returns (ResponseReceta);
+  rpc actualizarReceta(RecetaActualizarRequest) returns (ResponseReceta);
+  rpc traerRecetaPorId(RecetaPorIdRequest) returns (ResponseRecetaObj);
+  rpc traerRecetasTodas(Empty) returns (ResponseRecetaObjList);
+  rpc traerPorFiltro(RecetaFiltro) returns (ResponseRecetaObjList);
+}
+
+message RecetaRequest{
+  string titulo = 1;
+  string descripcion = 2;
+  int32 tiempo_preparacion = 3;
+  string categoria = 4;
+  repeated string ingredientes = 5;
+  repeated string pasos = 6;
+  repeated string fotos = 7;
+  int32 usuario_actual = 8;
+}
+
+message ResponseReceta{
+  string message = 1;
+}
+
+message RecetaActualizarRequest{
+  int32 id = 1;
+  string titulo = 2;
+  string descripcion = 3;
+  int32 tiempo_preparacion = 4;
+  string categoria = 5;
+  repeated string ingredientes = 6;
+  repeated string pasos = 7;
+  repeated string fotos = 8;
+  int32 usuario_actual = 9;
+}
+
+message RecetaPorIdRequest{
+  int32 id = 1;
+}
+
+message ResponseRecetaObj{
+  RecetaObject recetaObject = 1;
+  ResponseReceta mensaje = 2;
+}
+
+message RecetaObject{
+  int32 id = 1;
+  string titulo = 2;
+  string descripcion = 3;
+  int32 tiempo_preparacion = 4;
+  string categoria = 5;
+  repeated string ingredientes = 6;
+  repeated string pasos = 7;
+  repeated string fotos = 8;
+}
+
+message ResponseRecetaObjList{
+  repeated RecetaObject recetaObject = 1;
+  ResponseReceta mensaje = 2;
+}
+
+message Empty{
+}
+
+message RecetaFiltro{
+  string categoria = 1;
+  string titulo = 2;
+  string ingredientes = 3;
+  int32 tiempo_desde = 4;
+  int32 tiempo_hasta = 5;
+}

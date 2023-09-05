@@ -34,7 +34,7 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
 
     public void traerUsuarioPorId(UsuarioPorIdRequest request, StreamObserver<ResponseUsuarioObj> responseObserver) {
         ResponseData<UsuarioDTO> user = usuarioService.traerUsuarioPorId(request.getId());
-        System.out.println(user.getData().getUsuario()+user.getData().getEmail());
+        //System.out.println(user.getData().getUsuario()+user.getData().getEmail());
         responseObserver.onNext(responseUsuarioObjBuilder(user));
         responseObserver.onCompleted();
     }
@@ -50,7 +50,7 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
                 .build();
 
         ResponseUsuario mensaje = ResponseUsuario.newBuilder()
-                .setMessage("Usuatio encontrado")
+                .setMessage("Usuario encontrado")
                 .build();
 
         return ResponseUsuarioObj.newBuilder()

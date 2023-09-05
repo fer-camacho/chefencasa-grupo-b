@@ -19,7 +19,7 @@ message ResponseUsuario{
   string message = 1;
 }
 
-message UsuarioPorIdRequest {
+message UsuarioPorIdRequest{
   int32 id = 1;
 }
 
@@ -31,11 +31,11 @@ message UsuarioObject{
   string password = 5;
 }
 
-message ResponseUsuarioObj {
+message ResponseUsuarioObj{
   UsuarioObject usuarioObject = 1;
   ResponseUsuario mensaje = 2;
 }
 
-message UsuarioPorNombreRequest {
+message UsuarioPorNombreRequest{
   string nombre = 1;
 }
