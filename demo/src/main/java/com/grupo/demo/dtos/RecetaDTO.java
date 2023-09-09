@@ -13,32 +13,36 @@ public class RecetaDTO {
 	private Set<String> pasos;
 	private Set<String> fotos;
 	private Set<String> ingredientes;
-	
+	private int autorId;
+
 	public RecetaDTO() {
 		super();
 	}
 	
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion) {
+	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 	}
 
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria) {
+	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId, String categoria) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 		this.categoria = categoria;
 	}
 
-	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes) {
+	public RecetaDTO(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes, Set<Integer> favoritos) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 		this.categoria = categoria;
 		this.pasos = pasos;
 		this.fotos = fotos;
@@ -75,6 +79,14 @@ public class RecetaDTO {
 
 	public void setTiempo_preparacion(int tiempo_preparacion) {
 		this.tiempo_preparacion = tiempo_preparacion;
+	}
+
+	public int getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(int autorId) {
+		this.autorId = autorId;
 	}
 
 	public String getCategoria() {

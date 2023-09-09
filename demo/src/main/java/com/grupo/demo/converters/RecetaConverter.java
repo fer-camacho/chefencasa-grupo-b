@@ -14,6 +14,7 @@ public class RecetaConverter {
         dto.setTitulo(receta.getTitulo());
         dto.setDescripcion(receta.getDescripcion());
         dto.setTiempo_preparacion(receta.getTiempo_preparacion());
+        dto.setAutorId(receta.getAutorId());
         dto.setCategoria(receta.getCategoria());
         dto.setIngredientes(receta.getIngredientes());
         dto.setPasos(receta.getPasos());

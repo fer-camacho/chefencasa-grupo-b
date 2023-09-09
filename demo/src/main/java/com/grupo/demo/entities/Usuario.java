@@ -1,16 +1,12 @@
 package com.grupo.demo.entities;
 
-import java.util.Set;
+import com.grupo.demo.dtos.SeguidoDTO;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
 
 @Entity
 @Table(name="usuario")
@@ -31,13 +27,11 @@ public class Usuario {
 	
 	@Column(name="password", nullable = false)
 	protected String password;
-	
-	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
-	private Set<Seguido> seguidos;
-/*
-	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
-	private Set<Receta> recetas;*/
-	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<Integer> usuariosSeguidos;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<Integer> recetasFavoritas;
+
 	public Usuario() {
 		super();
 	}
@@ -49,29 +43,20 @@ public class Usuario {
 		this.email = email;
 		this.usuario = usuario;
 		this.password = password;
+		this.usuariosSeguidos = new HashSet<Integer>();
+		this.recetasFavoritas = new HashSet<Integer>();
 	}
 	
-	public Usuario(int id, String nombre, String email, String usuario, String password, Set<Seguido> seguidos) {
+	public Usuario(int id, String nombre, String email, String usuario, String password, Set<Integer> usuariosSeguidos, Set<Integer> recetasFavoritas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
 		this.usuario = usuario;
 		this.password = password;
-		this.seguidos = seguidos;
+		this.usuariosSeguidos = usuariosSeguidos;
+		this.recetasFavoritas = recetasFavoritas;
 	}
-	/*
-	public Usuario(int id, String nombre, String email, String usuario, String password, Set<Seguido> seguidos,
-			Set<Receta> recetas) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.email = email;
-		this.usuario = usuario;
-		this.password = password;
-		this.seguidos = seguidos;
-		this.recetas = recetas;
-	}*/
 
 	public int getId() {
 		return id;
@@ -113,20 +98,19 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public Set<Seguido> getSeguidos() {
-		return seguidos;
+	public Set<Integer> getUsuariosSeguidos() {
+		return usuariosSeguidos;
 	}
 
-	public void setSeguidos(Set<Seguido> seguidos) {
-		this.seguidos = seguidos;
-	}
-/*
-	public Set<Receta> getRecetas() {
-		return recetas;
+	public void setUsuariosSeguidos(Set<Integer> usuariosSeguidos) {
+		this.usuariosSeguidos = usuariosSeguidos;
 	}
 
-	public void setRecetas(Set<Receta> recetas) {
-		this.recetas = recetas;
-	}*/
-	
+	public Set<Integer> getRecetasFavoritas() {
+		return recetasFavoritas;
+	}
+
+	public void setRecetasFavoritas(Set<Integer> recetasFavoritas) {
+		this.recetasFavoritas = recetasFavoritas;
+	}
 }

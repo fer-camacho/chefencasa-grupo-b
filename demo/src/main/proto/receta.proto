@@ -71,4 +71,6 @@ message RecetaFiltro{
   string ingredientes = 3;
   int32 tiempo_desde = 4;
   int32 tiempo_hasta = 5;
+  int32 autorId = 6;
+  int32 favoritoUsuarioId = 7;
 }

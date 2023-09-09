@@ -7,9 +7,6 @@ from grpcRecetaCliente import RecetaCliente
 app = Flask(__name__)
 CORS(app)
 
-base_url_user = ""
-base_url_vitual_wallet = ""#lo que se ponga acá se agrega al inicio de todas las urls
-
 @app.route('/')
 def hello():
     return "Service (OK)"
@@ -18,7 +15,7 @@ def hello():
 
 @app.route('/crearUsuario', methods=['POST'])
 @cross_origin()
-def saveProduct():
+def crearUsuario():
     user = UsuarioCliente()
     result = user.crearUsuario(request.json)
     return MessageToJson(result)
@@ -26,11 +23,38 @@ def saveProduct():
 
 @app.route('/traerUsuarioPorId', methods=['GET'])
 @cross_origin()
-def findUserByUsername():
+def traerUsuarioPorId():
     user = UsuarioCliente()
     result = user.traerUsuarioPorId(request.json)
     return MessageToJson(result)
 
+@app.route('/traerRecetasFavoritas', methods=['GET'])
+@cross_origin()
+def traerRecetasFavoritas():
+    user = UsuarioCliente()
+    result = user.traerRecetasFavoritas(request.json)
+    return MessageToJson(result)
+
+@app.route('/marcarRecetaFavorita', methods=['POST'])
+@cross_origin()
+def marcarRecetaFavorita():
+    user = UsuarioCliente()
+    result = user.marcarRecetaFavorita(request.json)
+    return MessageToJson(result)
+
+@app.route('/seguirUsuario', methods=['POST'])
+@cross_origin()
+def seguirUsuario():
+    user = UsuarioCliente()
+    result = user.seguirUsuario(request.json)
+    return MessageToJson(result)
+
+@app.route('/traerUsuariosSeguidos', methods=['GET'])
+@cross_origin()
+def traerUsuariosSeguidos():
+    user = UsuarioCliente()
+    result = user.traerUsuariosSeguidos(request.json)
+    return MessageToJson(result)
 
 ############## RECETA
 

@@ -3,7 +3,7 @@ package com.grupo.demo.dtos;
 public class SeguidoDTO {
 	private int id;
 	private UsuarioDTO usuarioDTO;
-	
+
 	public SeguidoDTO() {
 		super();
 	}

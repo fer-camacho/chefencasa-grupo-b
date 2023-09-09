@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rusuario.proto\"R\n\x0eUsuarioRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x0f\n\x07usuario\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"\"\n\x0fResponseUsuario\x12\x0f\n\x07message\x18\x01 \x01(\t\"!\n\x13UsuarioPorIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"]\n\rUsuarioObject\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06nombre\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x0f\n\x07usuario\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"^\n\x12ResponseUsuarioObj\x12%\n\rusuarioObject\x18\x01 \x01(\x0b\x32\x0e.UsuarioObject\x12!\n\x07mensaje\x18\x02 \x01(\x0b\x32\x10.ResponseUsuario\")\n\x17UsuarioPorNombreRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t2\xc4\x01\n\x07usuario\x12\x31\n\x0c\x63rearUsuario\x12\x0f.UsuarioRequest\x1a\x10.ResponseUsuario\x12>\n\x11traerUsuarioPorId\x12\x14.UsuarioPorIdRequest\x1a\x13.ResponseUsuarioObj\x12\x46\n\x15traerUsuarioPorNombre\x12\x18.UsuarioPorNombreRequest\x1a\x13.ResponseUsuarioObjB \n\x1c\x63om.unla.chefencasagrpc.grpcP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rusuario.proto\"R\n\x0eUsuarioRequest\x12\x0e\n\x06nombre\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x0f\n\x07usuario\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"\"\n\x0fResponseUsuario\x12\x0f\n\x07message\x18\x01 \x01(\t\"!\n\x13UsuarioPorIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"]\n\rUsuarioObject\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06nombre\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x0f\n\x07usuario\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\"^\n\x12ResponseUsuarioObj\x12%\n\rusuarioObject\x18\x01 \x01(\x0b\x32\x0e.UsuarioObject\x12!\n\x07mensaje\x18\x02 \x01(\x0b\x32\x10.ResponseUsuario\"p\n\x16ResponseUsuarioObjList\x12\x33\n\x14recetaFavoritaObject\x18\x01 \x03(\x0b\x32\x15.RecetaFavoritaObject\x12!\n\x07mensaje\x18\x02 \x01(\x0b\x32\x10.ResponseUsuario\"\xaa\x01\n\x14RecetaFavoritaObject\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06titulo\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scripcion\x18\x03 \x01(\t\x12\x1a\n\x12tiempo_preparacion\x18\x04 \x01(\x05\x12\x11\n\tcategoria\x18\x05 \x01(\t\x12\x14\n\x0cingredientes\x18\x06 \x03(\t\x12\r\n\x05pasos\x18\x07 \x03(\t\x12\r\n\x05\x66otos\x18\x08 \x03(\t\"E\n\x1cUsuarioMarcarFavoritaRequest\x12\x11\n\tid_receta\x18\x01 \x01(\x05\x12\x12\n\nid_usuario\x18\x02 \x01(\x05\"F\n\x14SeguirUsuarioRequest\x12\x12\n\nid_usuario\x18\x01 \x01(\x05\x12\x1a\n\x12id_usuario_seguido\x18\x02 \x01(\x05\"j\n\x17ResponseSeguidosObjList\x12,\n\x14usuarioSeguidoObject\x18\x01 \x03(\x0b\x32\x0e.UsuarioObject\x12!\n\x07mensaje\x18\x02 \x01(\x0b\x32\x10.ResponseUsuario2\x90\x03\n\x07usuario\x12\x31\n\x0c\x63rearUsuario\x12\x0f.UsuarioRequest\x1a\x10.ResponseUsuario\x12>\n\x11traerUsuarioPorId\x12\x14.UsuarioPorIdRequest\x1a\x13.ResponseUsuarioObj\x12\x46\n\x15traerRecetasFavoritas\x12\x14.UsuarioPorIdRequest\x1a\x17.ResponseUsuarioObjList\x12G\n\x14marcarRecetaFavorita\x12\x1d.UsuarioMarcarFavoritaRequest\x1a\x10.ResponseUsuario\x12\x38\n\rseguirUsuario\x12\x15.SeguirUsuarioRequest\x1a\x10.ResponseUsuario\x12G\n\x15traerUsuariosSeguidos\x12\x14.UsuarioPorIdRequest\x1a\x18.ResponseSeguidosObjListB \n\x1c\x63om.unla.chefencasagrpc.grpcP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,8 +32,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_USUARIOOBJECT']._serialized_end=265
   _globals['_RESPONSEUSUARIOOBJ']._serialized_start=267
   _globals['_RESPONSEUSUARIOOBJ']._serialized_end=361
-  _globals['_USUARIOPORNOMBREREQUEST']._serialized_start=363
-  _globals['_USUARIOPORNOMBREREQUEST']._serialized_end=404
-  _globals['_USUARIO']._serialized_start=407
-  _globals['_USUARIO']._serialized_end=603
+  _globals['_RESPONSEUSUARIOOBJLIST']._serialized_start=363
+  _globals['_RESPONSEUSUARIOOBJLIST']._serialized_end=475
+  _globals['_RECETAFAVORITAOBJECT']._serialized_start=478
+  _globals['_RECETAFAVORITAOBJECT']._serialized_end=648
+  _globals['_USUARIOMARCARFAVORITAREQUEST']._serialized_start=650
+  _globals['_USUARIOMARCARFAVORITAREQUEST']._serialized_end=719
+  _globals['_SEGUIRUSUARIOREQUEST']._serialized_start=721
+  _globals['_SEGUIRUSUARIOREQUEST']._serialized_end=791
+  _globals['_RESPONSESEGUIDOSOBJLIST']._serialized_start=793
+  _globals['_RESPONSESEGUIDOSOBJLIST']._serialized_end=899
+  _globals['_USUARIO']._serialized_start=902
+  _globals['_USUARIO']._serialized_end=1302
 # @@protoc_insertion_point(module_scope)

@@ -60,7 +60,9 @@ class RecetaCliente(object):
         titulo = receta['titulo'],
         ingredientes = receta['ingredientes'],
         tiempo_desde = receta['tiempo_desde'],
-        tiempo_hasta = receta['tiempo_hasta']
+        tiempo_hasta = receta['tiempo_hasta'],
+        autorId = receta['autorId'],
+        favoritoUsuarioId = receta['favoritoUsuarioId']
         )
         return self.stub.traerPorFiltro(receta)
 RecetaCliente()

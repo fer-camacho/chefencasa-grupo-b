@@ -1,5 +1,6 @@
 package com.grupo.demo.converters;
 
+import com.grupo.demo.dtos.RecetaDTO;
 import com.grupo.demo.dtos.UsuarioDTO;
 import com.grupo.demo.entities.Usuario;
 
@@ -16,6 +17,7 @@ public class UsuarioConverter {
         usuario.setUsuario(dto.getUsuario());
         usuario.setPassword(dto.getPassword());
         usuario.setEmail(dto.getEmail());
+
         return usuario;
     }
 
