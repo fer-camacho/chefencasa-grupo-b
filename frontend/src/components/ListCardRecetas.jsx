@@ -18,7 +18,7 @@ const recetas = [
   { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" }
 ];
 
-function ListRecetas() {
+function ListCardRecetas() {
   let estilo = {padding:'1% 1%'}
   return (
     <>
@@ -44,4 +44,4 @@ function ListRecetas() {
   );
 }
 
-export default ListRecetas;
+export default ListCardRecetas;

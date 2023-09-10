@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
-import ListRecetas from "../../components/ListRecetas";
+import ListCardRecetas from "../../components/ListCardRecetas";
 
 
 function Home() {
@@ -19,7 +19,7 @@ function Home() {
             <Col md={{ span: 3 }}></Col>
 
             <Col className="d-flex">
-              <ListRecetas></ListRecetas>
+              <ListCardRecetas></ListCardRecetas>
             </Col>
 
             <Col md={{ span: 3 }}></Col>

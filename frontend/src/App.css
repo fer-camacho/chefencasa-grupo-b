@@ -1,9 +1,13 @@
 .App {
   text-align: center;
-  background: rgb(179,235,246);
-  background: radial-gradient(circle, rgba(179,235,246,1) 0%, rgba(82,166,241,1) 100%);
-  position:sticky;
-  
+  background: rgb(179, 235, 246);
+  background: radial-gradient(
+    circle,
+    rgba(179, 235, 246, 1) 0%,
+    rgba(82, 166, 241, 1) 100%
+  );
+  position: sticky;
+
   padding-bottom: 3em;
   min-height: 100vh;
 }
@@ -42,3 +46,4 @@
     transform: rotate(360deg);
   }
 }
+
