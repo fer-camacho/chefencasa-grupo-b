@@ -1,5 +1,8 @@
 package com.grupo.demo.dtos;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -10,8 +13,9 @@ public class UsuarioDTO {
 	private String email;
 	private String usuario;
 	private String password;
-	private Set<SeguidoDTO> seguidos;
-	
+	private Set<Integer> usuariosSeguidos;
+	private Set<Integer> recetasFavoritas;
+
 	public UsuarioDTO() {
 		super();
 	}
@@ -23,16 +27,19 @@ public class UsuarioDTO {
 		this.email = email;
 		this.usuario = usuario;
 		this.password = password;
+		Set<Integer> usuariosSeguidos = new HashSet<Integer>();
+		Set<Integer> recetasFavoritas = new HashSet<Integer>();
 	}
 	
-	public UsuarioDTO(int id, String nombre, String email, String usuario, String password, Set<SeguidoDTO> seguidos) {
+	public UsuarioDTO(int id, String nombre, String email, String usuario, String password, Set<Integer> usuariosSeguidos, Set<Integer> recetasFavoritas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
 		this.usuario = usuario;
 		this.password = password;
-		this.seguidos = seguidos;
+		this.usuariosSeguidos = usuariosSeguidos;
+		this.recetasFavoritas = recetasFavoritas;
 	}
 
 	public int getId() {
@@ -75,12 +82,19 @@ public class UsuarioDTO {
 		this.password = password;
 	}
 
-	public Set<SeguidoDTO> getSeguidos() {
-		return seguidos;
+	public Set<Integer> getUsuariosSeguidos() {
+		return usuariosSeguidos;
 	}
 
-	public void setSeguidos(Set<SeguidoDTO> seguidos) {
-		this.seguidos = seguidos;
+	public void setUsuariosSeguidos(Set<Integer> usuariosSeguidos) {
+		this.usuariosSeguidos = usuariosSeguidos;
 	}
-	
+
+	public Set<Integer> getRecetasFavoritas() {
+		return recetasFavoritas;
+	}
+
+	public void setRecetasFavoritas(Set<Integer> recetasFavoritas) {
+		this.recetasFavoritas = recetasFavoritas;
+	}
 }

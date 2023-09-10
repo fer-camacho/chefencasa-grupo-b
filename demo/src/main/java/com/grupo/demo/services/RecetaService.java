@@ -21,7 +21,6 @@ public class RecetaService {
 
     @Autowired
     IRecetaRepository recetaRepository;
-
     ModelMapper modelMapper = new ModelMapper();
 
     public ResponseEntity<String> crearReceta(RecetaDTO receta){
@@ -47,9 +46,9 @@ public class RecetaService {
         return recetaResult;
     }
 
-    public List<Receta> traerPorFiltro(String categoria, String titulo, String ingred,int tiempo_desde, int tiempo_hasta){
+    public List<Receta> traerPorFiltro(String categoria, String titulo, String ingred,int tiempo_desde, int tiempo_hasta, int autorId, int favoritoUsuarioId){
         List<Receta> recetas = new ArrayList<>();
-        String consulta = armarQuery(categoria, titulo, ingred, tiempo_desde, tiempo_hasta);
+        String consulta = armarQuery(categoria, titulo, ingred, tiempo_desde, tiempo_hasta, autorId, favoritoUsuarioId);
 
         try {
             String url = "jdbc:mysql://localhost:3306/db_chefencasa";
@@ -69,41 +68,10 @@ public class RecetaService {
                 receta.setCategoria(resultado.getString("categoria"));
                 receta.setTiempo_preparacion(resultado.getInt("tiempo_preparacion"));
 
-                Connection conexionIngredientes = DriverManager.getConnection(url, usuario, contraseña);
-                Statement statementIngredientes = conexion.createStatement();
-                ResultSet resultadoIngredientes = statementIngredientes.executeQuery("select * from receta_ingredientes where receta_id = "+ receta.getId());
-                Set<String> ingredientes = new HashSet<>();
-                while (resultadoIngredientes.next()){
-                    ingredientes.add(resultadoIngredientes.getString("ingredientes"));
-                }
-                receta.setIngredientes(ingredientes);
-                resultadoIngredientes.close();
-                statementIngredientes.close();
-                conexionIngredientes.close();
+                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_ingredientes where receta_id = ", "ingredientes", receta);
+                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_pasos where receta_id = ", "pasos", receta);
+                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_fotos where receta_id = ", "fotos", receta);
 
-                Connection conexionPasos = DriverManager.getConnection(url, usuario, contraseña);
-                Statement statementPasos = conexion.createStatement();
-                ResultSet resultadoPasos = statementPasos.executeQuery("select * from receta_pasos where receta_id = "+ receta.getId());
-                Set<String> pasos = new HashSet<>();
-                while (resultadoPasos.next()){
-                    pasos.add(resultadoPasos.getString("pasos"));
-                }
-                receta.setPasos(pasos);
-                resultadoPasos.close();
-                statementPasos.close();
-                conexionPasos.close();
-
-                Connection conexionFotos = DriverManager.getConnection(url, usuario, contraseña);
-                Statement statementFotos = conexion.createStatement();
-                ResultSet resultadoFotos = statementFotos.executeQuery("select * from receta_fotos where receta_id = "+ receta.getId());
-                Set<String> fotos = new HashSet<>();
-                while (resultadoFotos.next()){
-                    fotos.add(resultadoFotos.getString("fotos"));
-                }
-                receta.setFotos(fotos);
-                resultadoFotos.close();
-                statementFotos.close();
-                conexionFotos.close();
                 recetas.add(receta);
             }
 
@@ -118,32 +86,55 @@ public class RecetaService {
         return recetas;
     }
 
-    public String armarQuery(String categoria, String titulo, String ingredientes, int tiempo_desde, int tiempo_hasta) {
-        String consulta = "select * from receta";
-        if (!categoria.isEmpty() || !titulo.isEmpty() || (tiempo_desde != 0 && tiempo_hasta!=0)){
-            consulta+= " where";
-            if (!categoria.isEmpty()) {
-                consulta +=" categoria = '" + categoria + "'";
+    public Receta AtributeHelper(Connection conexion, String url, String usuario, String contraseña, String sql, String etiqueta, Receta receta){
+        try {
+            Connection conexionPasos = DriverManager.getConnection(url, usuario, contraseña);
+            Statement statementPasos = conexion.createStatement();
+            ResultSet resultadosQuery = statementPasos.executeQuery(sql + receta.getId());
+            Set<String> resultados = new HashSet<>();
+            while (resultadosQuery.next()) {
+                resultados.add(resultadosQuery.getString(etiqueta));
             }
-            if (!titulo.isEmpty()) {
-                if(!categoria.isEmpty()){
-                    consulta += " and";
-                }
-                consulta +=" titulo like '%" + titulo + "%'";
+            if (etiqueta.equals("pasos")){
+                receta.setPasos(resultados);
+            } else if (etiqueta.equals("ingredientes")){
+                receta.setIngredientes(resultados);
+            } else {
+                receta.setFotos(resultados);
             }
-            if (tiempo_desde != 0 && tiempo_hasta!=0) {
-                if (!titulo.isEmpty()){
-                    consulta += " and";
-                }
-                consulta +=" tiempo_preparacion between "+ tiempo_desde + " and " + tiempo_hasta;
-            }
-            if (!ingredientes.isEmpty()) {
-                if(tiempo_desde != 0 && tiempo_hasta!=0){
-                    consulta += " and";
-                }
-                consulta += " id in (select receta_id from receta_ingredientes where ingredientes = '" + ingredientes + "')";
-            }
+            resultadosQuery.close();
+            statementPasos.close();
+            conexionPasos.close();
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return receta;
+    }
+
+    public String armarQuery(String categoria, String titulo, String ingredientes, int tiempo_desde, int tiempo_hasta, int autorId, int favoritoUsuarioId) {
+        String consulta = "SELECT * FROM receta WHERE 1=1";
+        if (!categoria.isEmpty()) {
+            consulta +=" AND categoria = '" + categoria + "'";
+        }
+        if (!titulo.isEmpty()) {
+            consulta +=" AND titulo LIKE '%" + titulo + "%'";
+        }
+        if (tiempo_desde != 0 && tiempo_hasta!=0) {
+            consulta +=" AND tiempo_preparacion BETWEEN "+ tiempo_desde + " AND " + tiempo_hasta;
+        }
+        if (!ingredientes.isEmpty()) {
+            consulta += " AND id IN (SELECT receta_id FROM receta_ingredientes WHERE ingredientes = '" + ingredientes + "')";
+        }
+        if (favoritoUsuarioId != 0) {
+            consulta += " AND id IN (SELECT recetas_favoritas FROM usuario_recetas_favoritas WHERE usuario_id = '" + favoritoUsuarioId + "')";
+        }
+        if (autorId != 0) {
+            consulta += " AND autor_id = '" + autorId + "'";
+        }
+
+        System.out.println(consulta);
         return consulta;
     }
 }

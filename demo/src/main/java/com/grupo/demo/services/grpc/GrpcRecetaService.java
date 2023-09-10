@@ -3,7 +3,6 @@ package com.grupo.demo.services.grpc;
 import com.grupo.demo.dtos.RecetaDTO;
 import com.grupo.demo.dtos.ResponseData;
 import com.grupo.demo.entities.Receta;
-import com.grupo.demo.repositories.IIngredienteRepository;
 import com.grupo.demo.services.RecetaService;
 import com.unla.chefencasagrpc.grpc.*;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -13,15 +12,11 @@ import io.grpc.stub.*;
 import org.springframework.http.HttpStatus;
 import java.util.*;
 
-
 @GrpcService
 public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
 
     @Autowired
     RecetaService recetaService;
-
-    @Autowired
-    IIngredienteRepository ingredienteRepository;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -30,6 +25,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
         recetaAux.setTitulo(request.getTitulo());
         recetaAux.setDescripcion(request.getDescripcion());
         recetaAux.setTiempo_preparacion(request.getTiempoPreparacion());
+        recetaAux.setAutorId(request.getUsuarioActual());
         recetaAux.setCategoria(request.getCategoria());
 
         List<String> ing = request.getIngredientesList();
@@ -68,6 +64,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
         recetaAux.setTitulo(request.getTitulo());
         recetaAux.setDescripcion(request.getDescripcion());
         recetaAux.setTiempo_preparacion(request.getTiempoPreparacion());
+        recetaAux.setAutorId(request.getUsuarioActual());
         recetaAux.setCategoria(request.getCategoria());
 
         List<String> ing = request.getIngredientesList();
@@ -115,7 +112,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
             response.addRecetaObject(recetaObject);
         }
         ResponseReceta mensaje = ResponseReceta.newBuilder()
-                .setMessage("Recetas encontradas")
+                .setMessage("Recetas encontradas.")
                 .build();
 
         response.setMensaje(mensaje);
@@ -128,7 +125,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
 
         List<Receta> recetas = recetaService.traerPorFiltro(request.getCategoria(), request.getTitulo(),
                         request.getIngredientes(), Integer.valueOf(request.getTiempoDesde()),
-                        Integer.valueOf(request.getTiempoHasta()));
+                        Integer.valueOf(request.getTiempoHasta()), Integer.valueOf(request.getAutorId()), request.getFavoritoUsuarioId());
         for (Receta r : recetas) {
             RecetaObject  recetaObject = RecetaObjBuilder(r.getId(), r.getTitulo(),
                     r.getDescripcion(), r.getTiempo_preparacion(), r.getCategoria(),
@@ -136,7 +133,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
             response.addRecetaObject(recetaObject);
         }
         ResponseReceta mensaje = ResponseReceta.newBuilder()
-                .setMessage("Recetas encontradas")
+                .setMessage("Recetas encontradas.")
                 .build();
 
         response.setMensaje(mensaje);
@@ -147,9 +144,9 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
     private ResponseRecetaObj responseRecetaObjBuilder(ResponseData<RecetaDTO> recetaData){
         RecetaObject recetaObject =  RecetaObjBuilder(recetaData.getData().getId(), recetaData.getData().getTitulo(),
                 recetaData.getData().getDescripcion(), recetaData.getData().getTiempo_preparacion(), recetaData.getData().getCategoria(),
-                recetaData.getData().getIngredientes(), recetaData.getData().getPasos(), recetaData.getData().getFotos());
+                recetaData.getData().getIngredientes(), recetaData.getData().getPasos(), recetaData.getData().getFotos() /*, recetaData.getData().getAutorId()*/);
         ResponseReceta mensaje = ResponseReceta.newBuilder()
-                .setMessage("Receta encontrada")
+                .setMessage("Receta encontrada.")
                 .build();
 
         return ResponseRecetaObj.newBuilder()

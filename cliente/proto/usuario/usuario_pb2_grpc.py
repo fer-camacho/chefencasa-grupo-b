@@ -24,10 +24,25 @@ class usuarioStub(object):
                 request_serializer=usuario__pb2.UsuarioPorIdRequest.SerializeToString,
                 response_deserializer=usuario__pb2.ResponseUsuarioObj.FromString,
                 )
-        self.traerUsuarioPorNombre = channel.unary_unary(
-                '/usuario/traerUsuarioPorNombre',
-                request_serializer=usuario__pb2.UsuarioPorNombreRequest.SerializeToString,
-                response_deserializer=usuario__pb2.ResponseUsuarioObj.FromString,
+        self.traerRecetasFavoritas = channel.unary_unary(
+                '/usuario/traerRecetasFavoritas',
+                request_serializer=usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseUsuarioObjList.FromString,
+                )
+        self.marcarRecetaFavorita = channel.unary_unary(
+                '/usuario/marcarRecetaFavorita',
+                request_serializer=usuario__pb2.UsuarioMarcarFavoritaRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseUsuario.FromString,
+                )
+        self.seguirUsuario = channel.unary_unary(
+                '/usuario/seguirUsuario',
+                request_serializer=usuario__pb2.SeguirUsuarioRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseUsuario.FromString,
+                )
+        self.traerUsuariosSeguidos = channel.unary_unary(
+                '/usuario/traerUsuariosSeguidos',
+                request_serializer=usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+                response_deserializer=usuario__pb2.ResponseSeguidosObjList.FromString,
                 )
 
 
@@ -46,7 +61,25 @@ class usuarioServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def traerUsuarioPorNombre(self, request, context):
+    def traerRecetasFavoritas(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def marcarRecetaFavorita(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def seguirUsuario(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def traerUsuariosSeguidos(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -65,10 +98,25 @@ def add_usuarioServicer_to_server(servicer, server):
                     request_deserializer=usuario__pb2.UsuarioPorIdRequest.FromString,
                     response_serializer=usuario__pb2.ResponseUsuarioObj.SerializeToString,
             ),
-            'traerUsuarioPorNombre': grpc.unary_unary_rpc_method_handler(
-                    servicer.traerUsuarioPorNombre,
-                    request_deserializer=usuario__pb2.UsuarioPorNombreRequest.FromString,
-                    response_serializer=usuario__pb2.ResponseUsuarioObj.SerializeToString,
+            'traerRecetasFavoritas': grpc.unary_unary_rpc_method_handler(
+                    servicer.traerRecetasFavoritas,
+                    request_deserializer=usuario__pb2.UsuarioPorIdRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseUsuarioObjList.SerializeToString,
+            ),
+            'marcarRecetaFavorita': grpc.unary_unary_rpc_method_handler(
+                    servicer.marcarRecetaFavorita,
+                    request_deserializer=usuario__pb2.UsuarioMarcarFavoritaRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseUsuario.SerializeToString,
+            ),
+            'seguirUsuario': grpc.unary_unary_rpc_method_handler(
+                    servicer.seguirUsuario,
+                    request_deserializer=usuario__pb2.SeguirUsuarioRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseUsuario.SerializeToString,
+            ),
+            'traerUsuariosSeguidos': grpc.unary_unary_rpc_method_handler(
+                    servicer.traerUsuariosSeguidos,
+                    request_deserializer=usuario__pb2.UsuarioPorIdRequest.FromString,
+                    response_serializer=usuario__pb2.ResponseSeguidosObjList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -115,7 +163,7 @@ class usuario(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def traerUsuarioPorNombre(request,
+    def traerRecetasFavoritas(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,8 +173,59 @@ class usuario(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/usuario/traerUsuarioPorNombre',
-            usuario__pb2.UsuarioPorNombreRequest.SerializeToString,
-            usuario__pb2.ResponseUsuarioObj.FromString,
+        return grpc.experimental.unary_unary(request, target, '/usuario/traerRecetasFavoritas',
+            usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+            usuario__pb2.ResponseUsuarioObjList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def marcarRecetaFavorita(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/usuario/marcarRecetaFavorita',
+            usuario__pb2.UsuarioMarcarFavoritaRequest.SerializeToString,
+            usuario__pb2.ResponseUsuario.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def seguirUsuario(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/usuario/seguirUsuario',
+            usuario__pb2.SeguirUsuarioRequest.SerializeToString,
+            usuario__pb2.ResponseUsuario.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def traerUsuariosSeguidos(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/usuario/traerUsuariosSeguidos',
+            usuario__pb2.UsuarioPorIdRequest.SerializeToString,
+            usuario__pb2.ResponseSeguidosObjList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

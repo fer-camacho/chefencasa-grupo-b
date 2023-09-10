@@ -5,7 +5,10 @@ option java_package = "com.unla.chefencasagrpc.grpc";
 service usuario{
   rpc crearUsuario(UsuarioRequest) returns (ResponseUsuario);
   rpc traerUsuarioPorId(UsuarioPorIdRequest) returns (ResponseUsuarioObj);
-  rpc traerUsuarioPorNombre(UsuarioPorNombreRequest) returns  (ResponseUsuarioObj);
+  rpc traerRecetasFavoritas(UsuarioPorIdRequest) returns (ResponseUsuarioObjList);
+  rpc marcarRecetaFavorita(UsuarioMarcarFavoritaRequest) returns (ResponseUsuario);
+  rpc seguirUsuario(SeguirUsuarioRequest) returns (ResponseUsuario);
+  rpc traerUsuariosSeguidos(UsuarioPorIdRequest) returns (ResponseSeguidosObjList);
 }
 
 message UsuarioRequest{
@@ -36,6 +39,33 @@ message ResponseUsuarioObj{
   ResponseUsuario mensaje = 2;
 }
 
-message UsuarioPorNombreRequest{
-  string nombre = 1;
+message ResponseUsuarioObjList{
+  repeated RecetaFavoritaObject recetaFavoritaObject = 1;
+  ResponseUsuario mensaje = 2;
+}
+
+message RecetaFavoritaObject{
+  int32 id = 1;
+  string titulo = 2;
+  string descripcion = 3;
+  int32 tiempo_preparacion = 4;
+  string categoria = 5;
+  repeated string ingredientes = 6;
+  repeated string pasos = 7;
+  repeated string fotos = 8;
+}
+
+message UsuarioMarcarFavoritaRequest{
+  int32 id_receta = 1;
+  int32 id_usuario = 2;
+}
+
+message SeguirUsuarioRequest{
+  int32 id_usuario = 1;
+  int32 id_usuario_seguido = 2;
+}
+
+message ResponseSeguidosObjList{
+  repeated UsuarioObject usuarioSeguidoObject = 1;
+  ResponseUsuario mensaje = 2;
 }

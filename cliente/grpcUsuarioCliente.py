@@ -29,4 +29,30 @@ class UsuarioCliente(object):
         )
         return self.stub.traerUsuarioPorId(usuarioEncontrado)
 
+    def traerRecetasFavoritas(self, user):
+        recetasFavoritas = service_pb2.UsuarioPorIdRequest(
+            id = user['id']
+        )
+        return self.stub.traerRecetasFavoritas(recetasFavoritas)
+
+    def marcarRecetaFavorita(self, user):
+        receta = service_pb2.UsuarioMarcarFavoritaRequest(
+            id_receta = user['id_receta'],
+            id_usuario = user['id_usuario']
+        )
+        return self.stub.marcarRecetaFavorita(receta)
+    
+    def seguirUsuario(self, user):
+        usuario = service_pb2.SeguirUsuarioRequest(
+            id_usuario = user['id_usuario'],
+            id_usuario_seguido = user['id_usuario_seguido']
+        )
+        return self.stub.seguirUsuario(usuario)
+    
+    def traerUsuariosSeguidos(self, user):
+        usuariosSeguidos = service_pb2.UsuarioPorIdRequest(
+            id = user['id']
+        )
+        return self.stub.traerUsuariosSeguidos(usuariosSeguidos)
+    
 UsuarioCliente()

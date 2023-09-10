@@ -1,68 +1,78 @@
 package com.grupo.demo.entities;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name="receta")
 public class Receta {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
-	
-	@Column(name="titulo", nullable = false)
+
+	@Column(name = "titulo", nullable = false)
 	protected String titulo;
-	
-	@Column(name="descripcion", nullable = false)
+
+	@Column(name = "descripcion", nullable = false)
 	protected String descripcion;
-	
-	@Column(name="tiempo_preparacion", nullable = false)
+
+	@Column(name = "tiempo_preparacion", nullable = false)
 	protected int tiempo_preparacion;
-
-	@JoinColumn(name="categoria", nullable=false)
+	@Column(name = "autorId", nullable = false)
+	private int autorId;
+	@JoinColumn(name = "categoria", nullable = false)
 	private String categoria;
-
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> pasos;
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> fotos;
-
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> ingredientes;
 
 	public Receta() {
 	}
 
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion) {
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 	}
 
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria) {
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId, String categoria) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 		this.categoria = categoria;
 	}
 
-	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes) {
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, int autorId, String categoria, Set<String> pasos, Set<String> fotos, Set<String> ingredientes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tiempo_preparacion = tiempo_preparacion;
+		this.autorId = autorId;
 		this.categoria = categoria;
 		this.pasos = pasos;
 		this.fotos = fotos;
 		this.ingredientes = ingredientes;
+	}
+
+	public Receta(int id, String titulo, String descripcion, int tiempo_preparacion, String categoria, int autorId, Set<String> pasos, Set<String> fotos, Set<String> ingredientes, Set<Integer> favoritos) {
+		this.id = id;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.tiempo_preparacion = tiempo_preparacion;
+		this.categoria = categoria;
+		this.autorId = autorId;
+		this.pasos = pasos;
+		this.fotos = fotos;
+		this.ingredientes = ingredientes;
+
 	}
 
 	public int getId() {
@@ -97,6 +107,14 @@ public class Receta {
 		this.tiempo_preparacion = tiempo_preparacion;
 	}
 
+	public int getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(int autorId) {
+		this.autorId = autorId;
+	}
+
 	public String getCategoria() {
 		return categoria;
 	}
@@ -129,3 +147,4 @@ public class Receta {
 		this.ingredientes = ingredientes;
 	}
 }
+

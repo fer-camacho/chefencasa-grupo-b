@@ -66,9 +66,11 @@ message Empty{
 }
 
 message RecetaFiltro{
-    string categoria = 1;
-    string titulo = 2;
-    string ingredientes = 3;
-    int32 tiempo_desde = 4;
-    int32 tiempo_hasta = 5;
+  string categoria = 1;
+  string titulo = 2;
+  string ingredientes = 3;
+  int32 tiempo_desde = 4;
+  int32 tiempo_hasta = 5;
+  int32 autorId = 6;
+  int32 favoritoUsuarioId = 7;
 }
