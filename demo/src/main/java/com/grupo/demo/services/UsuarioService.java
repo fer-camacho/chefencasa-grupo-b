@@ -57,6 +57,9 @@ public class UsuarioService {
     }
 
     public ResponseEntity<String> seguirUsuario(int id_usuario, int id_usuario_seguido){
+        if (id_usuario == id_usuario_seguido) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede seguir a uno mismo.");
+        }
         Usuario usuario = usuarioRepository.traerUsuarioPorId(id_usuario);
         Set<Integer> usuariosSeguidos = usuario.getUsuariosSeguidos();
         String body = "";

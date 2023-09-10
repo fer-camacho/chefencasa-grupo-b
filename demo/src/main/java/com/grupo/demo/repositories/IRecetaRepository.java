@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 @Repository("recetaRepository")
 public interface IRecetaRepository extends JpaRepository<Receta, Serializable> {

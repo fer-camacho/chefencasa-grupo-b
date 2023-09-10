@@ -1,11 +1,6 @@
 package com.grupo.demo.entities;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity

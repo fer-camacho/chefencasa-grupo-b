@@ -46,7 +46,6 @@ public class RecetaService {
         return recetaResult;
     }
 
-    //TODO tal vez agregar AutorId como parametro para solucionar la consulta de recetas propias y reutilizar el metodo
     public List<Receta> traerPorFiltro(String categoria, String titulo, String ingred,int tiempo_desde, int tiempo_hasta, int autorId, int favoritoUsuarioId){
         List<Receta> recetas = new ArrayList<>();
         String consulta = armarQuery(categoria, titulo, ingred, tiempo_desde, tiempo_hasta, autorId, favoritoUsuarioId);

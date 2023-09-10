@@ -10,16 +10,6 @@ public class UsuarioConverter {
     public UsuarioConverter(){
 
     }
-    public static Usuario fromUsuarioDTOtoUsuario(UsuarioDTO dto){
-        Usuario usuario = new Usuario();
-        usuario.setId(dto.getId());
-        usuario.setNombre(dto.getNombre());
-        usuario.setUsuario(dto.getUsuario());
-        usuario.setPassword(dto.getPassword());
-        usuario.setEmail(dto.getEmail());
-
-        return usuario;
-    }
 
     public static UsuarioDTO fromUsuarioToUsuarioDTO(Usuario Usuario){
         UsuarioDTO dto = new UsuarioDTO();

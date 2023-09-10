@@ -1,6 +1,5 @@
 package com.grupo.demo.services.grpc;
 
-import com.grupo.demo.dtos.RecetaDTO;
 import com.grupo.demo.dtos.ResponseData;
 import com.grupo.demo.dtos.UsuarioDTO;
 import com.grupo.demo.entities.Receta;
@@ -25,7 +24,6 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
     UsuarioService usuarioService;
 
     ModelMapper modelMapper = new ModelMapper();
-
 
     @Override
     public void crearUsuario(UsuarioRequest request, StreamObserver<ResponseUsuario> responseObserver) {
@@ -71,7 +69,7 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
 
             response.addRecetaFavoritaObject(recetaFavoritaObject);
         }
-        ResponseUsuario mensaje = responseUsuarioBuilder("Recetas favoritas encontradas");
+        ResponseUsuario mensaje = responseUsuarioBuilder("Recetas favoritas encontradas.");
         response.setMensaje(mensaje);
         responseObserver.onNext(response.build());
         responseObserver.onCompleted();
@@ -80,12 +78,11 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
     public void traerUsuariosSeguidos(UsuarioPorIdRequest request, StreamObserver<ResponseSeguidosObjList> responseObserver) {
         ResponseSeguidosObjList.Builder response= ResponseSeguidosObjList.newBuilder();
         List<Usuario> usuarios = usuarioService.traerUsuariosSeguidos(request.getId());
-        System.out.println(modelMapper.map(usuarios.get(0), UsuarioDTO.class));
         for (Usuario u: usuarios){
             UsuarioObject userObject = usuarioObjectBuilder(u.getId(), u.getNombre(), u.getEmail(), u.getUsuario(), u.getPassword());
             response.addUsuarioSeguidoObject(userObject);
         }
-        ResponseUsuario mensaje = responseUsuarioBuilder("Usuarios seguidos encontrados");
+        ResponseUsuario mensaje = responseUsuarioBuilder("Usuarios seguidos encontrados.");
         response.setMensaje(mensaje);
         responseObserver.onNext(response.build());
         responseObserver.onCompleted();
