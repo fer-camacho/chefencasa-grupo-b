@@ -20,6 +20,8 @@ const recetas = [
 
 function ListCardRecetas() {
   let estilo = {padding:'1% 1%'}
+  
+
   return (
     <>
       <Container

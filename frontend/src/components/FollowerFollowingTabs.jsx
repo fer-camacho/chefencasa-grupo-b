@@ -1,16 +1,23 @@
 import React from 'react';
 import { Nav, Tab, Container, Row, Col } from 'react-bootstrap';
-import ListadoSeguidores from "./ListadoSeguidores"
+import ListadoSeguidos from "./ListadoSeguidos"
 
-function FollowerFollowingTabs() {
+function FollowerFollowingTabs(usuario) {
+  const user = {
+    id: 1,
+    nombre: 'Nombre del Usuario',
+    userName: 'NombreUsuario',
+    email: 'usuario@example.com',
+    password: 'contraseña',
+  };
     return (
-        <Tab.Container id="follower-following-tabs" defaultActiveKey="followers">
+        <Tab.Container id="follower-following-tabs" defaultActiveKey="following">
           <Container>
             <Row>
               <Col sm={12}>
                 <Nav variant="tabs" className="justify-content-center">
                   <Nav.Item>
-                    <Nav.Link eventKey="followers">Seguidores</Nav.Link>
+                    <Nav.Link eventKey="followers" disabled>Seguidores</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link eventKey="following">Siguiendo</Nav.Link>
@@ -22,10 +29,10 @@ function FollowerFollowingTabs() {
               <Col sm={12}>
                 <Tab.Content>
                   <Tab.Pane eventKey="followers">
-                   <ListadoSeguidores/>
+                  Seguidores, sin contenido.
                   </Tab.Pane>
                   <Tab.Pane eventKey="following">
-                    Contenido de la pestaña Siguiendo va aquí.
+                    {/*  <ListadoSeguidos user={user}/> pasar la lista de seguidos, no el usuario */}                  
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

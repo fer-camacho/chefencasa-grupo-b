@@ -31,7 +31,7 @@ function Signup() {
         await axios.post('http://127.0.0.1:5000/crearUsuario', user1);
         console.log('creacion: '+user1);
         alert('Usuario creado exitosamente');
-        window.location.href = '/';
+        window.location.href = '/login';
       } catch (error) {
         console.error('Error al crear el usuario', error);
         alert('Error al crear el usuario');

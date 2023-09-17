@@ -12,6 +12,7 @@ function NavBar() {
       
         <Navbar.Brand href="/">CHEF EN CASA</Navbar.Brand>
         <Col ></Col>
+        <Button variant="primary" href="/usuario">Usuario</Button>
         <Button variant="primary" href="/login">Ingresar</Button>
         <Button className="btn border-light" variant="dark" href="/crearusuario">Ragistrarse</Button>
       

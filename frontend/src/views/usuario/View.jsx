@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import React, { useContext } from "react";
+import React, { useContext , useState, useEffect} from "react";
 import UserContext from "../../context/UserContext";
 import ListadoRecetas from "../../components/ListadoRecetas";
 import ListadoFavoritas from "../../components/ListadoFavoritas";
@@ -11,8 +11,28 @@ import FollowerFollowingTabs from "../../components/FollowerFollowingTabs";
 import imgPerfil from "../../img/wallpaper.jpg";
 import { redirect } from "react-router-dom";
 
+
+  
+
+
 function Usuario() {
-  const { user } = useContext(UserContext);
+
+const [usuario, setUsuario] = useState(null);
+const { traerUsuarioPorId } = useContext(UserContext);
+
+useEffect(() => {
+ traerUsuarioPorId(1).then((msg) => {
+      console.log("usuario a actualizar: "+ JSON.stringify(msg));
+      setUsuario(msg.usuarioObject);
+    })
+    .catch((error) => {
+      console.error("Error al cargar el usuario:", error);
+    });
+}, [traerUsuarioPorId]);
+console.log("usuario :"+usuario );
+
+
+
   const estilo = {
     display: "flex",
     backgroundColor: "",
@@ -42,6 +62,12 @@ function Usuario() {
     borderStyle: "solid",
     border: "1px solid white",
   };
+ 
+  if (!usuario) {
+    return <p>Cargando usuario...</p>;
+  }
+
+
   //<img className="rounded-circle shadow" style={margin-top:50px} width="200" height="200" src={imgPerfil} />
   return (
     <>
@@ -57,39 +83,19 @@ function Usuario() {
             </Col>
             <Col>
               {" "}
-              <h1>USERNAME</h1>
+              <h1>{usuario.usuario}</h1>
             </Col>
             <Col>
               {" "}
-              <h1>INFO</h1>
+              <h1>INFO:{" "} {usuario.email}</h1>
             </Col>
-            <FollowerFollowingTabs />
+            <FollowerFollowingTabs usuario={usuario} />
           </div>
         </aside>
         <section style={estiloSection}>
-          <RecetasTabs />
-          {/* <Col md={{ span: 3 }} className="contenedor"></Col>
-        <Container >
-          <Row xs={1}>
-          <h1>MIS RECETAS </h1>
-          </Row>
-          <Row xs={1}>
-            <Col className="  " >
-              <ListadoRecetas></ListadoRecetas>
-            </Col>
-            <Col md={{ span: 3 }}></Col>
-          </Row>
-        </Container>*/}
+          <RecetasTabs usuario={usuario}/>      
         </section>
-      {/*  <aside style={estiloAside}>
-          <div style={estiloPerfil}>
-            <Col>
-              {" "}
-              <h1>FAVORITAS</h1>
-            </Col>
-            <ListadoFavoritas />
-          </div>
-        </aside>*/}
+      
       </div>
     </>
   );
