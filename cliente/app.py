@@ -21,11 +21,11 @@ def crearUsuario():
     return MessageToJson(result)
 
 
-@app.route('/traerUsuarioPorId', methods=['GET'])
+@app.route('/traerUsuarioPorId/<int:user_id>', methods=['GET'])
 @cross_origin()
-def traerUsuarioPorId():
+def traerUsuarioPorId(user_id):
     user = UsuarioCliente()
-    result = user.traerUsuarioPorId(request.json)
+    result = user.traerUsuarioPorId({'id': user_id})
     return MessageToJson(result)
 
 @app.route('/traerRecetasFavoritas', methods=['GET'])
@@ -89,8 +89,35 @@ def traerRecetasTodas():
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
 def traerPorFiltro():
+    # Extract parameters from the query string
+    categoria = request.args.get('categoria', '')
+    titulo = request.args.get('titulo', '')
+    ingredientes = request.args.get('ingredientes', '')
+
+    tiempo_desde_str = request.args.get('tiempo_desde', '')
+    tiempo_desde = int(tiempo_desde_str) if tiempo_desde_str else 0
+
+    tiempo_hasta_str = request.args.get('tiempo_hasta', '')
+    tiempo_hasta = int(tiempo_hasta_str) if tiempo_hasta_str else 0
+
+    autorId_str = request.args.get('autorId', '')
+    autorId = int(autorId_str) if autorId_str else 0
+
+    favoritoUsuarioId_str = request.args.get('favoritoUsuarioId', '')
+    favoritoUsuarioId = int(favoritoUsuarioId_str) if favoritoUsuarioId_str else 0
+
+    # Create a dictionary with the parameters
+    receta1 = {
+        'categoria': categoria,
+        'titulo': titulo,
+        'ingredientes': ingredientes,
+        'tiempo_desde': tiempo_desde,
+        'tiempo_hasta': tiempo_hasta,
+        'autorId': autorId,
+        'favoritoUsuarioId': favoritoUsuarioId
+    }
     receta = RecetaCliente()
-    result = receta.traerPorFiltro(request.json)
+    result = receta.traerPorFiltro(receta1)
     return MessageToJson(result)
 
 

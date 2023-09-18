@@ -32,7 +32,7 @@ function FollowerFollowingTabs(usuario) {
                   Seguidores, sin contenido.
                   </Tab.Pane>
                   <Tab.Pane eventKey="following">
-                    {/*  <ListadoSeguidos user={user}/> pasar la lista de seguidos, no el usuario */}                  
+                     {/*<ListadoSeguidos user={user}/> pasar la lista de seguidos, no el usuario  */}                  
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

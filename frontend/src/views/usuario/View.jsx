@@ -19,7 +19,7 @@ function Usuario() {
 
 const [usuario, setUsuario] = useState(null);
 const { traerUsuarioPorId } = useContext(UserContext);
-
+const imagenUser = "https://robohash.org/user"+usuario.id;
 useEffect(() => {
  traerUsuarioPorId(1).then((msg) => {
       console.log("usuario a actualizar: "+ JSON.stringify(msg));
@@ -78,7 +78,7 @@ console.log("usuario :"+usuario );
               <img
                 className="rounded-circle  "
                 style={estiloImgPerfil}
-                src={imgPerfil}
+                src={imagenUser}
               />
             </Col>
             <Col>
