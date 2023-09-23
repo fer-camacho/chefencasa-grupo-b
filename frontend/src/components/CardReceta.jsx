@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 
-function CardReceta( {id, titulo, descripcion, img} ) {
+function CardReceta( {receta} ) {
   const estilo = {
     width: "18rem",
     background: "hsla(0, 0%, 100%, 0.55)",
@@ -14,13 +15,15 @@ function CardReceta( {id, titulo, descripcion, img} ) {
     <>
       <Col>
         <Card className="card shadow" style={estilo}>
-          <Card.Img className="card-img shadow rounded-top" variant="top" src={img} />
+          <Card.Img className="card-img shadow rounded-top" variant="top" src={"receta.fotos[0]"} />
           <Card.Body>
-            <Card.Title>{titulo}</Card.Title>
+            <Card.Title>{receta.titulo}</Card.Title>
             <Card.Text>
-              <div class="overflow-auto">{descripcion}</div>
+              <div class="overflow-auto">{receta.descripcion}</div>
             </Card.Text>
-            <Button variant="primary">ID: {id}</Button>
+            <Link to={`/receta?recetaId=${receta.id}`}>
+                <Button variant="primary">Ver receta</Button>
+              </Link>
           </Card.Body>
         </Card>
       </Col>

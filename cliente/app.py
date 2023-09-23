@@ -49,11 +49,11 @@ def seguirUsuario():
     result = user.seguirUsuario(request.json)
     return MessageToJson(result)
 
-@app.route('/traerUsuariosSeguidos', methods=['GET'])
+@app.route('/traerUsuariosSeguidos/<int:user_id>', methods=['GET'])
 @cross_origin()
-def traerUsuariosSeguidos():
+def traerUsuariosSeguidos(user_id):
     user = UsuarioCliente()
-    result = user.traerUsuariosSeguidos(request.json)
+    result = user.traerUsuariosSeguidos({'id': user_id})
     return MessageToJson(result)
 
 ############## RECETA
@@ -72,18 +72,18 @@ def actualizarReceta():
     result = receta.actualizarReceta(request.json)
     return MessageToJson(result)
 
-@app.route('/traerReceta', methods=['GET'])
+@app.route('/traerReceta/<int:recetaId>', methods=['GET'])
 @cross_origin()
-def traerReceta():
+def traerReceta(recetaId):
     receta = RecetaCliente()
-    result = receta.traerRecetaPorId(request.json)
+    result = receta.traerRecetaPorId({'id': recetaId})
     return MessageToJson(result)
 
 @app.route('/traerRecetas', methods=['GET'])
 @cross_origin()
 def traerRecetasTodas():
     receta = RecetaCliente()
-    result = receta.traerRecetasTodas(request.json)
+    result = receta.traerRecetasTodas({''})
     return MessageToJson(result)
 
 @app.route('/traerPorFiltro', methods=['GET'])

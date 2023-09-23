@@ -8,11 +8,23 @@ import ListCardRecetas from "../../components/ListCardRecetas";
 
 
 function Home() {
-  const { user, traerUsuarioPorId } = useContext(UserContext);
-console.log("previo a la peticion");
-const usuario = traerUsuarioPorId(2);
-console.log("Pos peticion");
+  const { user, traerUsuarioPorId , traerRecetas} = useContext(UserContext);
+const [recetas, setRecetas] = useState(null);
 
+//console.log("Pos peticion");
+useEffect(() => {  
+  traerRecetas()
+      .then((msg) => {
+        console.log("RECETAS HOME:", msg);
+        setRecetas(msg.recetaObject);
+      })
+      .catch((error) => {
+        console.error("Error al cargar el usuario:", error);
+      });
+}, [ traerRecetas]);
+if (!recetas) {
+  return <p>Cargando recetas...</p>;
+}
   return (
     <>      
       <section>
@@ -24,7 +36,7 @@ console.log("Pos peticion");
             <Col md={{ span: 3 }}></Col>
 
             <Col className="d-flex">
-              <ListCardRecetas></ListCardRecetas>
+              <ListCardRecetas  key={Math.random()} recetas={recetas}></ListCardRecetas>
             </Col>
 
             <Col md={{ span: 3 }}></Col>

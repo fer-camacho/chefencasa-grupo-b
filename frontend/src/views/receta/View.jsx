@@ -1,76 +1,74 @@
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext , useState, useEffect} from "react";
 import UserContext from "../../context/UserContext";
 import ListadoRecetas from "../../components/ListadoRecetas";
 import ListadoFavoritas from "../../components/ListadoFavoritas";
-import RecetasTabs from "../../components/RecetasTabs";
+import Receta from "../../components/Receta";
 import FollowerFollowingTabs from "../../components/FollowerFollowingTabs";
 import imgPerfil from "../../img/wallpaper.jpg";
-import { redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import UsuarioPerfil from "../../components/UsuarioPerfil";
 
-function Usuario() {
+function RecetaView() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("user");
+  const id_receta = searchParams.get('recetaId');
 
-  const [usuario, setUsuario] = useState(null);
-  const { traerUsuarioPorId } = useContext(UserContext);
+  
+  const [receta, setReceta] = useState(null);
+  const { traerRecetaPorId } = useContext(UserContext);
 
-  console.log("USER_ID: " + JSON.stringify(id));
+  console.log("RECETA_ID: " + JSON.stringify(id_receta));
 
   useEffect(() => {
-    if (id) {
-      traerUsuarioPorId(id)
+    if (id_receta) {
+      traerRecetaPorId(id_receta)
         .then((msg) => {
-          console.log("Usuario actualizado:", msg);
-          setUsuario(msg.usuarioObject);
+          console.log("RECETAVIEW OBTENIDA:", msg);
+          setReceta(msg.recetaObject);
         })
         .catch((error) => {
           console.error("Error al cargar el usuario:", error);
         });
     }
-  }, [id, traerUsuarioPorId]);
-  if (!usuario) {
-    return <p>Cargando usuario...</p>;
+  }, [id_receta, traerRecetaPorId]);
+  if (!receta) {
+    return <p>Cargando receta...</p>;
   }
-
-  console.log("usuario Objeto:" + usuario);
-  console.log("ID usuario.id" + usuario.id);
-
+   
   const estilo = {
     display: "flex",
     backgroundColor: "",
     justifyContent: "center",
-  };
+  }; 
   const estiloSection = {
     backgroundColor: "",
     justifyContent: "center",
     width: "60%",
     marginTop: "10px",
-    marginBottom: "30px",
-  };
+    marginBottom : "30px"
+  }; 
   const estiloAside = {
     backgroundColor: "",
     justifyContent: "center",
     width: "20%",
   };
-
+ 
   return (
     <>
-      <div style={estilo}>
-        <aside style={estiloAside}>
-          <UsuarioPerfil key={Math.random()} usuario={usuario} />
-        </aside>
+      <div style={estilo}>       
+       {/*  <aside style={estiloAside}>
+          <UsuarioPerfil key={Math.random()} usuario={usuario} />         
+        </aside>  Ver el tema de traer el usuario*/}
         <section style={estiloSection}>
-          <RecetasTabs key={Math.random()} usuario={usuario} />
+          <Receta key={Math.random()} receta={receta}/>      
         </section>
+      
       </div>
     </>
   );
 }
 
-export default Usuario;
+export default RecetaView;

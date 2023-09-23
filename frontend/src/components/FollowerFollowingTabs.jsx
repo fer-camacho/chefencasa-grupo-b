@@ -1,15 +1,29 @@
-import React from 'react';
+import React,{ useContext , useState, useEffect} from 'react';
+import UserContext from "../context/UserContext";
 import { Nav, Tab, Container, Row, Col } from 'react-bootstrap';
 import ListadoSeguidos from "./ListadoSeguidos"
 
-function FollowerFollowingTabs(usuario) {
-  const user = {
-    id: 1,
-    nombre: 'Nombre del Usuario',
-    userName: 'NombreUsuario',
-    email: 'usuario@example.com',
-    password: 'contraseña',
-  };
+function FollowerFollowingTabs({usuario}) {
+  const [seguidos, setSeguidos] = useState([]);
+  const {traerUsuariosSeguidos} = useContext(UserContext);
+
+  console.log("FollowerFollowingTabs USUARIO: "+usuario.usuario.id)
+  useEffect(()=>{
+    traerUsuariosSeguidos(usuario.id).then((msg)=>{
+      console.log("SEGUIDOS:" + JSON.stringify(msg.usuarioSeguidoObject));
+      setSeguidos(msg.usuarioSeguidoObject);
+    }).catch((error)=>{
+      console.error("Error al cargar usuarios Seguidos:", error);
+    });
+  },[traerUsuariosSeguidos] );
+
+// const user = {
+//   id: 1,
+//   nombre: 'Nombre del Usuario',
+//   userName: 'NombreUsuario',
+//   email: 'usuario@example.com',
+//   password: 'contraseña',
+// };
     return (
         <Tab.Container id="follower-following-tabs" defaultActiveKey="following">
           <Container>
@@ -32,7 +46,7 @@ function FollowerFollowingTabs(usuario) {
                   Seguidores, sin contenido.
                   </Tab.Pane>
                   <Tab.Pane eventKey="following">
-                     {/*<ListadoSeguidos user={user}/> pasar la lista de seguidos, no el usuario  */}                  
+                    {!seguidos ? <p>Sin Seguidos...</p> : <ListadoSeguidos seguidos={seguidos}/>}                              
                   </Tab.Pane>
                 </Tab.Content>
               </Col>

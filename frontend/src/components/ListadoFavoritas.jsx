@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import imagen from "../img/wallpaper.jpg";
 import Col from "react-bootstrap/Col";
 
-function ListadoFavoritas(listRecetas) {
+function ListadoFavoritas({recetas}) {
   let estilo = {
     background: "hsla(0, 0%, 100%, 0.55)",
     backdropFilter: "blur(30px)",
@@ -17,21 +18,7 @@ function ListadoFavoritas(listRecetas) {
   textOverflow: "ellipsis",
   maxWidth: "300px",
   };
-  const recetas = listRecetas.recetas;
-  //const recetas = [
-  //  {
-  //    id: 1,
-  //    nombre: "NOMBRE1NOMBRE1NOMBRE1NOMBRE1NOMBRE1NOMBRE1",
-  //    descripcion:
-  //      "DESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado largaDESCRIPCION demasiado larga DESCRIPCION demasiado larga DESCRIPCION demasiado larga DESCRIPCION demasiado larga",
-  //    imagenUrl: imagen,
-  //  },
-  //  { id: 2, nombre: "NOMBRE2", descripcion: "DESCRIPCION", imagenUrl: imagen },
-  //  { id: 3, nombre: "NOMBRE3", descripcion: "DESCRIPCION", imagenUrl: imagen },
-  //  { id: 4, nombre: "NOMBRE4", descripcion: "DESCRIPCION", imagenUrl: imagen },
-  //  { id: 5, nombre: "NOMBRE5", descripcion: "DESCRIPCION", imagenUrl: imagen },
-  //  { id: 6, nombre: "NOMBRE6", descripcion: "DESCRIPCION", imagenUrl: imagen },
-  //];
+
 
   return (
     <>
@@ -71,7 +58,9 @@ function ListadoFavoritas(listRecetas) {
               <div>{receta.tiempoPreparacion}</div>
               <Col />
               <Button variant="warning"style={{ marginRight:"5px" }}>Quitar receta</Button>
-              <Button variant="primary">Ver receta</Button>
+              <Link to={`/receta?recetaId=${receta.id}`}>
+                <Button variant="primary">Ver receta</Button>
+              </Link>
             </div>
           </Card.Body>
         </Card>

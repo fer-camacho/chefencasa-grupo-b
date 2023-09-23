@@ -27,8 +27,56 @@ const obtenerUsuarioPorId = async (userId) => {
       console.error('Error al obtener y mostrar el usuario:', error);
     }
   }
+  const obtenerUsuariosSeguidos = async (userId) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:5000/traerUsuariosSeguidos/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener el usuarioSeguidos:', error);
+      throw error;
+    }
+  };
+    async function traerUsuariosSeguidos(userId) {
+      try {
+        const seguidos = await obtenerUsuariosSeguidos(userId);
+        console.log('Usuarios Segudos:', seguidos);
+        return seguidos;
+      } catch (error) {
+        // Manejo de errores
+        console.error('Error al obtener y mostrar el usuario:', error);
+      }
+    }
 
   //RECETAS
+  async function traerRecetas() {
+    try {
+      const response = await axios.get(`http://127.0.0.1:5000/traerRecetas`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener las recetas:', error);
+      throw error;
+    }
+  }
+  const obtenerRecetaPorId = async (recetaId) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:5000/traerReceta/${recetaId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener la receta:', error);
+      throw error;
+    }
+  };
+    async function traerRecetaPorId(recetaId) {
+      try {
+        const receta = await obtenerRecetaPorId(recetaId);
+        console.log('Receta obtenida:', receta);
+        return receta;
+      } catch (error) {
+        // Manejo de errores
+        console.error('Error al obtener y mostrar el usuario:', error);
+      }
+    }
+
   const obtenerRecetasPorFiltro= async(categoria, titulo, ingredientes, tiempoDesde, tiempoHasta, autorId, favoritoUsuarioId) =>{
     try {
       const params = new URLSearchParams({
@@ -64,7 +112,7 @@ const obtenerUsuarioPorId = async (userId) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, traerUsuarioPorId , obtenerUsuarioPorId, obtenerRecetasPorFiltro, traerRecetasPorFiltro}}>
+    <UserContext.Provider value={{ user, setUser, traerUsuarioPorId , traerUsuariosSeguidos, traerRecetas,traerRecetaPorId, traerRecetasPorFiltro}}>
       {children}
     </UserContext.Provider>
   );

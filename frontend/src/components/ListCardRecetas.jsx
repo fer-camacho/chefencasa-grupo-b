@@ -8,17 +8,17 @@ import imagen from "../img/wallpaper.jpg";
 import imagen1 from "../img/portada.webp";
 
 //Datos de prueba
-const recetas = [
-  { id: 1,img:imagen, titulo: "TITULO1", descripcion: "DESCRIPCION" },
-  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" },
-  { id: 1,img:imagen, titulo: "TITULO", descripcion: "DESCRIPCION es una descripcion larga DESCRIPCIONDESCRIPCION es una descripcion larga DESCRIPCIONDESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga" },
-  { id: 1,img:imagen, titulo: "TITULO", descripcion: "DESCRIPCION" },
-  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" },
-  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga" },
-  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" }
-];
+//const recetas = [
+//  { id: 1,img:imagen, titulo: "TITULO1", descripcion: "DESCRIPCION" },
+//  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" },
+//  { id: 1,img:imagen, titulo: "TITULO", descripcion: "DESCRIPCION es una descripcion larga DESCRIPCIONDESCRIPCION es una descripcion larga DESCRIPCIONDESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga" },
+//  { id: 1,img:imagen, titulo: "TITULO", descripcion: "DESCRIPCION" },
+//  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" },
+//  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION es una descripcion larga DESCRIPCION es una descripcion larga" },
+//  { id: 1,img:imagen1, titulo: "TITULO", descripcion: "DESCRIPCION" }
+//];
 
-function ListCardRecetas() {
+function ListCardRecetas({recetas}) {
   let estilo = {padding:'1% 1%'}
   
 
@@ -30,14 +30,9 @@ function ListCardRecetas() {
       >
         {/**/}{" "}
         <Row>
-          {recetas.map((cardReceta, index) => (
+          {recetas.map((receta, index) => (
             <Col key={index} style={estilo}>
-              <CardReceta
-                id={cardReceta.id}
-                titulo={cardReceta.titulo}
-                descripcion={cardReceta.descripcion}
-                img={cardReceta.img}
-              ></CardReceta>
+              <CardReceta receta={receta}></CardReceta>
             </Col>
           ))}
         </Row>

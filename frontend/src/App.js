@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SignUp from "./views/signup/View.jsx";
 import Login from "./views/login/View.jsx";
 import Home from "./views/home/View.jsx";
+import RecetaView from "./views/receta/View.jsx";
 import Usuario from "./views/usuario/View.jsx";
 import Scripts from "./Scripts";
 import Navbar from "./components/NavBar";
@@ -22,7 +23,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/crearusuario" element={<SignUp />} />
           <Route path="/" element={<Home />} />
-          <Route path="/usuario" element={<Usuario/>} />
+          <Route path="/receta" element={<RecetaView key={Math.random()}/>} />
+          <Route path="/usuario" element={<Usuario key={Math.random()} />} />
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
