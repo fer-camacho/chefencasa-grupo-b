@@ -56,6 +56,13 @@ def traerUsuariosSeguidos(user_id):
     result = user.traerUsuariosSeguidos({'id': user_id})
     return MessageToJson(result)
 
+@app.route('/obtenerUsuario', methods=['GET'])
+@cross_origin()
+def obtenerUsuario():
+    user = UsuarioCliente()
+    result = user.obtenerUsuario(request.json)
+    return MessageToJson(result)
+
 ############## RECETA
 
 @app.route('/crearReceta', methods=['POST'])
@@ -86,6 +93,7 @@ def traerRecetasTodas():
     result = receta.traerRecetasTodas({''})
     return MessageToJson(result)
 
+"""
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
 def traerPorFiltro():
@@ -119,7 +127,15 @@ def traerPorFiltro():
     receta = RecetaCliente()
     result = receta.traerPorFiltro(receta1)
     return MessageToJson(result)
+"""
 
+@app.route('/traerPorFiltro', methods=['GET'])
+@cross_origin()
+def traerPorFiltro():
+    receta = RecetaCliente()
+    result = receta.traerPorFiltro(request.json)
+    print(request.json)
+    return MessageToJson(result)
 
 if __name__ == '__main__':
     app.run()

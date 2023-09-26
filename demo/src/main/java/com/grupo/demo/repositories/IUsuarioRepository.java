@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("usuarioRepository")
 public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable> {
@@ -22,4 +23,7 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable>
 
     @Query(nativeQuery=true,value="Select u.* from usuario u where u.id in (select usuarios_seguidos from usuario_usuarios_seguidos us2 where us2.usuario_id = (:id))")
     public abstract List<Usuario> traerUsuariosSeguidos(int id);
+
+    @Query(nativeQuery=true,value="Select * from usuario where usuario.usuario=(:usuario) and usuario.password=(:password)")
+    public abstract Optional<Usuario> traerUsuarioPorUsuarioYPassword(String usuario, String password);
 }

@@ -2,8 +2,10 @@ package com.grupo.demo.services.grpc;
 
 import com.grupo.demo.dtos.RecetaDTO;
 import com.grupo.demo.dtos.ResponseData;
+import com.grupo.demo.dtos.UsuarioDTO;
 import com.grupo.demo.entities.Receta;
 import com.grupo.demo.services.RecetaService;
+import com.grupo.demo.services.UsuarioService;
 import com.unla.chefencasagrpc.grpc.*;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.modelmapper.ModelMapper;
@@ -108,7 +110,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
         for (Receta r : recetas) {
             RecetaObject  recetaObject = RecetaObjBuilder(r.getId(), r.getTitulo(),
                     r.getDescripcion(), r.getTiempo_preparacion(), r.getCategoria(),
-                    r.getIngredientes(), r.getPasos(), r.getFotos());
+                    r.getIngredientes(), r.getPasos(), r.getFotos(), r.getAutorId());
             response.addRecetaObject(recetaObject);
         }
         ResponseReceta mensaje = ResponseReceta.newBuilder()
@@ -129,7 +131,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
         for (Receta r : recetas) {
             RecetaObject  recetaObject = RecetaObjBuilder(r.getId(), r.getTitulo(),
                     r.getDescripcion(), r.getTiempo_preparacion(), r.getCategoria(),
-                    r.getIngredientes(), r.getPasos(), r.getFotos());
+                    r.getIngredientes(), r.getPasos(), r.getFotos(), r.getAutorId());
             response.addRecetaObject(recetaObject);
         }
         ResponseReceta mensaje = ResponseReceta.newBuilder()
@@ -144,7 +146,8 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
     private ResponseRecetaObj responseRecetaObjBuilder(ResponseData<RecetaDTO> recetaData){
         RecetaObject recetaObject =  RecetaObjBuilder(recetaData.getData().getId(), recetaData.getData().getTitulo(),
                 recetaData.getData().getDescripcion(), recetaData.getData().getTiempo_preparacion(), recetaData.getData().getCategoria(),
-                recetaData.getData().getIngredientes(), recetaData.getData().getPasos(), recetaData.getData().getFotos() /*, recetaData.getData().getAutorId()*/);
+                recetaData.getData().getIngredientes(), recetaData.getData().getPasos(), recetaData.getData().getFotos(), recetaData.getData().getAutorId());
+
         ResponseReceta mensaje = ResponseReceta.newBuilder()
                 .setMessage("Receta encontrada.")
                 .build();
@@ -155,7 +158,8 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
                 .build();
     }
     private RecetaObject RecetaObjBuilder(int id, String titulo, String descripcion, int tiempo_preparacion,
-                                          String categoria,Set<String> ingredientes, Set<String> pasos, Set<String> fotos){
+                                          String categoria,Set<String> ingredientes, Set<String> pasos, Set<String> fotos,
+                                          int id_autor){
         RecetaObject.Builder recetaObject = RecetaObject.newBuilder();
 
         recetaObject.setId(id);
@@ -163,6 +167,7 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
         recetaObject.setDescripcion(descripcion);
         recetaObject.setTiempoPreparacion(tiempo_preparacion);
         recetaObject.setCategoria(categoria);
+        recetaObject.setIdAutor(id_autor);
 
         //convierto a lista para poder ordenar los pasos
         List<String> pas = new ArrayList<>();

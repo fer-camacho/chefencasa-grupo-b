@@ -88,6 +88,14 @@ public class GrpcUsuarioService extends usuarioGrpc.usuarioImplBase{
         responseObserver.onCompleted();
     }
 
+    public void obtenerUsuario(UsuarioActualRequest request, StreamObserver<ResponseUsuarioObj> responseObserver) {
+        ResponseData<UsuarioDTO> user = usuarioService.obtenerUsuario(request.getUsuario(), request.getPassword());
+        responseObserver.onNext(responseUsuarioObjBuilder(user.getData().getId(), user.getData().getNombre(),
+                user.getData().getEmail(), user.getData().getUsuario(), user.getData().getPassword())
+        );
+        responseObserver.onCompleted();
+    }
+
     public ResponseUsuario responseUsuarioBuilder(String mensaje){
         ResponseUsuario responseUser = ResponseUsuario.newBuilder()
                 .setMessage(String.valueOf(mensaje))

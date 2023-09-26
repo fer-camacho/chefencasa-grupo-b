@@ -55,4 +55,11 @@ class UsuarioCliente(object):
         )
         return self.stub.traerUsuariosSeguidos(usuariosSeguidos)
     
+    def obtenerUsuario(self, user):
+        usuarioEncontrado = service_pb2.UsuarioActualRequest(
+            usuario = user['usuario'],
+            password = user['password']
+        )
+        return self.stub.obtenerUsuario(usuarioEncontrado)
+
 UsuarioCliente()

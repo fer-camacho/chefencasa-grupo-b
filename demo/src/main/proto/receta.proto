@@ -55,6 +55,7 @@ message RecetaObject{
   repeated string ingredientes = 6;
   repeated string pasos = 7;
   repeated string fotos = 8;
+  int32 id_autor = 9;
 }
 
 message ResponseRecetaObjList{

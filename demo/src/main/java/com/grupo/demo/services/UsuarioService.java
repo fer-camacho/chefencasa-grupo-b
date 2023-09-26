@@ -83,6 +83,15 @@ public class UsuarioService {
                         () -> new ResponseData<>(null, UsuarioConstants.USER_NOT_FOUND_ERROR_MESSAGE));
     }
 
+    public ResponseData<UsuarioDTO> obtenerUsuario(String usuario, String password) {
+        Optional<Usuario> userResult =  usuarioRepository.traerUsuarioPorUsuarioYPassword(usuario, password);
+        return userResult.map(
+                        user -> new ResponseData<>(UsuarioConverter.fromUsuarioToUsuarioDTO(user),
+                                UsuarioConstants.OK))
+                .orElseGet(
+                        () -> new ResponseData<>(null, UsuarioConstants.USER_NOT_FOUND_ERROR_MESSAGE));
+    }
+
     public List<Receta> traerRecetasFavoritas(int id) {
         return recetaRepository.traerRecetasFavoritas(id);
     }

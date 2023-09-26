@@ -52,9 +52,7 @@ public class RecetaService {
 
         try {
             String url = "jdbc:mysql://localhost:3306/db_chefencasa";
-            String usuario = UsuarioConstants.USER;
-            String contraseña = UsuarioConstants.PASSWORD;
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conexion = DriverManager.getConnection(url, UsuarioConstants.USER, UsuarioConstants.PASSWORD);
             Statement statement = conexion.createStatement();
             ResultSet resultado = statement.executeQuery(consulta);
             System.out.println(consulta);
@@ -67,10 +65,10 @@ public class RecetaService {
                 receta.setDescripcion(resultado.getString("descripcion"));
                 receta.setCategoria(resultado.getString("categoria"));
                 receta.setTiempo_preparacion(resultado.getInt("tiempo_preparacion"));
-
-                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_ingredientes where receta_id = ", "ingredientes", receta);
-                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_pasos where receta_id = ", "pasos", receta);
-                AtributeHelper(conexion, url, usuario, contraseña, "select * from receta_fotos where receta_id = ", "fotos", receta);
+                receta.setAutorId(resultado.getInt("autor_id"));
+                AtributeHelper(conexion, url, UsuarioConstants.USER, UsuarioConstants.PASSWORD, "select * from receta_ingredientes where receta_id = ", "ingredientes", receta);
+                AtributeHelper(conexion, url, UsuarioConstants.USER, UsuarioConstants.PASSWORD, "select * from receta_pasos where receta_id = ", "pasos", receta);
+                AtributeHelper(conexion, url, UsuarioConstants.USER, UsuarioConstants.PASSWORD, "select * from receta_fotos where receta_id = ", "fotos", receta);
 
                 recetas.add(receta);
             }
