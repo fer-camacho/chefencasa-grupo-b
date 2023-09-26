@@ -92,7 +92,6 @@ def traerRecetasTodas():
     receta = RecetaCliente()
     result = receta.traerRecetasTodas({''})
     return MessageToJson(result)
-
 """
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
@@ -104,7 +103,7 @@ def traerPorFiltro():
 
     tiempo_desde_str = request.args.get('tiempo_desde', '')
     tiempo_desde = int(tiempo_desde_str) if tiempo_desde_str else 0
-
+    
     tiempo_hasta_str = request.args.get('tiempo_hasta', '')
     tiempo_hasta = int(tiempo_hasta_str) if tiempo_hasta_str else 0
 
@@ -124,11 +123,13 @@ def traerPorFiltro():
         'autorId': autorId,
         'favoritoUsuarioId': favoritoUsuarioId
     }
+    print(receta1)
     receta = RecetaCliente()
-    result = receta.traerPorFiltro(receta1)
+    #result = receta.traerPorFiltro(receta1)
+    result = receta.traerPorFiltro(request.json)
     return MessageToJson(result)
-"""
 
+"""
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
 def traerPorFiltro():

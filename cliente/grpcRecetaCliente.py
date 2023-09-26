@@ -55,14 +55,30 @@ class RecetaCliente(object):
         return self.stub.traerRecetasTodas(receta)
     
     def traerPorFiltro(self, receta):
+        cat = receta['categoria']
+        tit = receta['titulo']
+        ing = receta['ingredientes']
+        desde = receta['tiempo_desde']
+        hasta = receta['tiempo_hasta']
+        autor = receta['autorId']
+        favorito = receta['favoritoUsuarioId']
+        
+        if (len(cat) == 0): cat = ''
+        if (len(tit) == 0): tit = ''
+        if (len(ing) == 0): ing = ''
+        if (desde == 0): desde = 0
+        if (hasta == 0): hasta = 0
+        if (autor == 0): autor = 0
+        if (favorito == 0): favorito = 0
+
         receta = service_pb2.RecetaFiltro(
-        categoria = receta['categoria'],
-        titulo = receta['titulo'],
-        ingredientes = receta['ingredientes'],
-        tiempo_desde = receta['tiempo_desde'],
-        tiempo_hasta = receta['tiempo_hasta'],
-        autorId = receta['autorId'],
-        favoritoUsuarioId = receta['favoritoUsuarioId']
+        categoria = cat,
+        titulo = tit,
+        ingredientes = ing,
+        tiempo_desde = desde,
+        tiempo_hasta = hasta,
+        autorId = autor,
+        favoritoUsuarioId = favorito
         )
         return self.stub.traerPorFiltro(receta)
 RecetaCliente()
