@@ -31,9 +31,6 @@ public class UsuarioService {
     RecetaService recetaService;
 
     @Autowired
-    CustomerService customerService;
-
-    @Autowired
     PopularidadUsuarioService popularidadUsuarioService;
 
     @Autowired
@@ -47,9 +44,6 @@ public class UsuarioService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario no se agrego porque ya existe");
         }
         usuarioRepository.save(aux);
-        //Customer cus = new Customer(usuario.getId(), usuario.getNombre(), usuario.getEmail());
-        //customerService.save(cus);
-        //System.out.println(cus);
         return ResponseEntity.status(HttpStatus.CREATED).body("El usuario fue agregado correctamente");
 
     }
