@@ -81,4 +81,21 @@ class RecetaCliente(object):
         favoritoUsuarioId = favorito
         )
         return self.stub.traerPorFiltro(receta)
+
+    def comentarReceta(self, receta):
+        receta = service_pb2.ComentarioRequest(
+        id_usuario = receta['id_usuario'],
+        id_receta = receta['id_receta'],
+        comentario = receta['comentario']
+        )
+        return self.stub.comentarReceta(receta)
+
+    def calificarReceta(self, receta):
+        receta = service_pb2.CalificarRequest(
+        id_usuario = receta['id_usuario'],
+        id_receta = receta['id_receta'],
+        puntaje = receta['puntaje']
+        )
+        return self.stub.calificarReceta(receta)
+
 RecetaCliente()

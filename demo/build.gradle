@@ -37,6 +37,8 @@ dependencies {
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.48.1'
     implementation 'io.grpc:grpc-protobuf:1.48.1'
     implementation 'io.grpc:grpc-stub:1.48.1'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-clients'
 }
 
 protobuf {

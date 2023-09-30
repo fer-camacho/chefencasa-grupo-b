@@ -18,6 +18,7 @@ def hello():
 def crearUsuario():
     user = UsuarioCliente()
     result = user.crearUsuario(request.json)
+    print(result)
     return MessageToJson(result)
 
 
@@ -92,6 +93,20 @@ def traerRecetasTodas():
     receta = RecetaCliente()
     result = receta.traerRecetasTodas({''})
     return MessageToJson(result)
+
+@app.route('/comentarReceta', methods=['POST'])
+@cross_origin()
+def comentarReceta():
+    receta = RecetaCliente()
+    result = receta.comentarReceta(request.json)
+    return MessageToJson(result)
+
+@app.route('/calificarReceta', methods=['POST'])
+@cross_origin()
+def calificarReceta():
+    receta = RecetaCliente()
+    result = receta.calificarReceta(request.json)
+    return MessageToJson(result)
 """
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
@@ -135,7 +150,6 @@ def traerPorFiltro():
 def traerPorFiltro():
     receta = RecetaCliente()
     result = receta.traerPorFiltro(request.json)
-    print(request.json)
     return MessageToJson(result)
 
 if __name__ == '__main__':

@@ -39,6 +39,16 @@ class recetaStub(object):
                 request_serializer=receta__pb2.RecetaFiltro.SerializeToString,
                 response_deserializer=receta__pb2.ResponseRecetaObjList.FromString,
                 )
+        self.comentarReceta = channel.unary_unary(
+                '/receta/comentarReceta',
+                request_serializer=receta__pb2.ComentarioRequest.SerializeToString,
+                response_deserializer=receta__pb2.ResponseReceta.FromString,
+                )
+        self.calificarReceta = channel.unary_unary(
+                '/receta/calificarReceta',
+                request_serializer=receta__pb2.CalificarRequest.SerializeToString,
+                response_deserializer=receta__pb2.ResponseReceta.FromString,
+                )
 
 
 class recetaServicer(object):
@@ -74,6 +84,18 @@ class recetaServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def comentarReceta(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def calificarReceta(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_recetaServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +123,16 @@ def add_recetaServicer_to_server(servicer, server):
                     servicer.traerPorFiltro,
                     request_deserializer=receta__pb2.RecetaFiltro.FromString,
                     response_serializer=receta__pb2.ResponseRecetaObjList.SerializeToString,
+            ),
+            'comentarReceta': grpc.unary_unary_rpc_method_handler(
+                    servicer.comentarReceta,
+                    request_deserializer=receta__pb2.ComentarioRequest.FromString,
+                    response_serializer=receta__pb2.ResponseReceta.SerializeToString,
+            ),
+            'calificarReceta': grpc.unary_unary_rpc_method_handler(
+                    servicer.calificarReceta,
+                    request_deserializer=receta__pb2.CalificarRequest.FromString,
+                    response_serializer=receta__pb2.ResponseReceta.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -194,5 +226,39 @@ class receta(object):
         return grpc.experimental.unary_unary(request, target, '/receta/traerPorFiltro',
             receta__pb2.RecetaFiltro.SerializeToString,
             receta__pb2.ResponseRecetaObjList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def comentarReceta(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/receta/comentarReceta',
+            receta__pb2.ComentarioRequest.SerializeToString,
+            receta__pb2.ResponseReceta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def calificarReceta(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/receta/calificarReceta',
+            receta__pb2.CalificarRequest.SerializeToString,
+            receta__pb2.ResponseReceta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

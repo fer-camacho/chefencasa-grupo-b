@@ -5,10 +5,13 @@ import com.grupo.demo.constants.UsuarioConstants;
 import com.grupo.demo.converters.RecetaConverter;
 import com.grupo.demo.dtos.RecetaDTO;
 import com.grupo.demo.dtos.ResponseData;
-import com.grupo.demo.entities.Receta;
+import com.grupo.demo.dtos.UsuarioDTO;
+import com.grupo.demo.entities.*;
 import com.grupo.demo.repositories.IRecetaRepository;
+import com.grupo.demo.repositories.IUsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,23 @@ public class RecetaService {
 
     @Autowired
     IRecetaRepository recetaRepository;
+
+    @Autowired
+    IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    NovedadesService novedadesService;
+
+    @Autowired
+    ComentariosService comentariosService;
+
+    @Autowired
+    PopularidadRecetaService popularidadRecetaService;
+
+    @Autowired
+    @Lazy
+    UsuarioService usuarioService;
+
     ModelMapper modelMapper = new ModelMapper();
 
     public ResponseEntity<String> crearReceta(RecetaDTO receta){
@@ -29,6 +49,10 @@ public class RecetaService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La receta no puede tener mas de 5 fotos");
         }
         recetaRepository.save(aux);
+
+        Optional<Usuario> userResult =  usuarioRepository.findById(receta.getAutorId());
+        Novedades nov = new Novedades(userResult.get().getUsuario(), receta.getTitulo(), receta.getFotos().iterator().next());
+        novedadesService.save(nov);
         return ResponseEntity.status(HttpStatus.CREATED).body("La receta fue creada");
     }
 
@@ -134,5 +158,38 @@ public class RecetaService {
 
         System.out.println(consulta);
         return consulta;
+    }
+
+    public String traerNombreUsuarioAutor(int id_receta) {
+        Optional<Receta> receta = recetaRepository.findById(id_receta);
+        Optional<Usuario> usuario = usuarioRepository.findById(receta.get().getAutorId());
+        return usuario.get().getUsuario();
+    }
+
+
+
+    public ResponseEntity<String> comentarReceta(int id_usuario, int id_receta, String comentario){
+        ResponseData<UsuarioDTO> usuario = usuarioService.traerUsuarioPorId(id_usuario);
+        ResponseData<RecetaDTO> receta = traerRecetaPorId(id_receta);
+        if (!receta.isEmptyData() && !usuario.isEmptyData()) {
+            Comentarios com = new Comentarios(usuario.getData().getUsuario(), receta.getData().getTitulo(), comentario);
+            comentariosService.save(com);
+            if (id_usuario != receta.getData().getAutorId()){
+                PopularidadReceta rec = new PopularidadReceta(id_receta, 1);
+                popularidadRecetaService.save(rec);
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body("El comentario fue guardado.");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body("Error al guardar el comentario.");
+    }
+
+    public ResponseEntity<String> calificarReceta(int id_usuario, int id_receta, int calificacion){
+        ResponseData<RecetaDTO> receta = traerRecetaPorId(id_receta);
+        if (id_usuario == receta.getData().getAutorId()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario no puede calificar su propia receta.");
+        }
+        PopularidadReceta rec = new PopularidadReceta(id_receta, calificacion);
+        popularidadRecetaService.save(rec);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Su calificacion fue guardada.");
     }
 }

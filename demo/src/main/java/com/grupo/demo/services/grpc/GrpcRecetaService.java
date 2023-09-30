@@ -20,6 +20,9 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
     @Autowired
     RecetaService recetaService;
 
+    @Autowired
+    UsuarioService usuarioService;
+
     ModelMapper modelMapper = new ModelMapper();
 
     public void crearReceta(RecetaRequest request, StreamObserver<ResponseReceta> responseObserver){
@@ -140,6 +143,25 @@ public class GrpcRecetaService extends recetaGrpc.recetaImplBase{
 
         response.setMensaje(mensaje);
         responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+
+    public void comentarReceta(ComentarioRequest request, StreamObserver<ResponseReceta> responseObserver) {
+        HttpStatus state = recetaService.comentarReceta(request.getIdUsuario(), request.getIdReceta(), request.getComentario()).getStatusCode();
+        ResponseReceta responseReceta = ResponseReceta.newBuilder()
+                .setMessage(String.valueOf(state))
+                        .build();
+        responseObserver.onNext(responseReceta);
+        responseObserver.onCompleted();
+    }
+
+
+    public void calificarReceta(CalificarRequest request, StreamObserver<ResponseReceta> responseObserver) {
+        HttpStatus state = recetaService.calificarReceta(request.getIdUsuario(), request.getIdReceta(), request.getPuntaje()).getStatusCode();
+        ResponseReceta responseReceta = ResponseReceta.newBuilder()
+                .setMessage(String.valueOf(state))
+                .build();
+        responseObserver.onNext(responseReceta);
         responseObserver.onCompleted();
     }
 

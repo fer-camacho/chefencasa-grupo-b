@@ -8,6 +8,9 @@ service receta{
   rpc traerRecetaPorId(RecetaPorIdRequest) returns (ResponseRecetaObj);
   rpc traerRecetasTodas(Empty) returns (ResponseRecetaObjList);
   rpc traerPorFiltro(RecetaFiltro) returns (ResponseRecetaObjList);
+
+  rpc comentarReceta(ComentarioRequest) returns (ResponseReceta);
+  rpc calificarReceta(CalificarRequest) returns (ResponseReceta);
 }
 
 message RecetaRequest{
@@ -74,4 +77,16 @@ message RecetaFiltro{
   int32 tiempo_hasta = 5;
   int32 autorId = 6;
   int32 favoritoUsuarioId = 7;
+}
+
+message ComentarioRequest{
+  int32 id_usuario = 1;
+  int32 id_receta = 2;
+  string comentario = 3;
+}
+
+message CalificarRequest{
+  int32 id_usuario = 1;
+  int32 id_receta = 2;
+  int32 puntaje = 3;
 }
