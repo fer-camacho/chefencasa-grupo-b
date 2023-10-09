@@ -1,11 +1,15 @@
 // UserContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useEffect} from 'react';
 import axios from 'axios'; // Importa Axios si aún no lo has hecho
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    console.log('User context updated:', user);
+  }, [user]);
 
 //USUARIO
 const obtenerUsuarioPorId = async (userId) => {
@@ -27,6 +31,16 @@ const obtenerUsuarioPorId = async (userId) => {
       console.error('Error al obtener y mostrar el usuario:', error);
     }
   }
+  async function obtenerUsuario(user) {
+    try {
+      const response = await axios.get(`http://127.0.0.1:5000/obtenerUsuario?usuario=${user.usuario}&password=${user.password}`);
+      return response.data.usuarioObject;
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
+      throw error;
+    }
+  };
+  
   const obtenerUsuariosSeguidos = async (userId) => {
     try {
       const response = await axios.get(`http://127.0.0.1:5000/traerUsuariosSeguidos/${userId}`);
@@ -112,7 +126,7 @@ const obtenerUsuarioPorId = async (userId) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, traerUsuarioPorId , traerUsuariosSeguidos, traerRecetas,traerRecetaPorId, traerRecetasPorFiltro}}>
+    <UserContext.Provider value={{ user, setUser, traerUsuarioPorId ,obtenerUsuario, traerUsuariosSeguidos, traerRecetas,traerRecetaPorId, traerRecetasPorFiltro}}>
       {children}
     </UserContext.Provider>
   );
