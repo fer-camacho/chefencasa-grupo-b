@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import UserContext from "../../context/UserContext";
 
 function Login() {
-  const { setUser } = useContext(UserContext);
+  const { setUser, obtenerUsuario } = useContext(UserContext);
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -22,20 +22,21 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/loginUsuario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+       // Hacer la solicitud para obtener el usuario
+       const usuario1 = {
+        usuario: formData.userName,
+        password: formData.password
+      };
+      console.log("USUARIO1 LOGIN:", usuario1);
 
-      if (response.ok) {
-        const user = await response.json();
-        setUser(user);
-      } else {
-        console.error("Inicio de sesión fallido");
-      }
+      const user = await obtenerUsuario(usuario1);
+      console.log("USUARIO LOGIN:", user);     
+      
+      // Establecer el usuario en el contexto
+      setUser(user);
+
+      window.location.href = '/usuario?user='+user.id;
+      
     } catch (error) {
       console.error("Error al iniciar sesión", error);
     }

@@ -61,7 +61,16 @@ def traerUsuariosSeguidos(user_id):
 @cross_origin()
 def obtenerUsuario():
     user = UsuarioCliente()
-    result = user.obtenerUsuario(request.json)
+     # Obtén los parámetros de consulta de la URL
+    usuario = request.args.get('usuario')
+    password = request.args.get('password')
+    usuario1={
+    'usuario': usuario,
+    'password': password
+    }
+    print('USUARIO1 GET: ')
+    print(usuario1)
+    result = user.obtenerUsuario(usuario1)
     return MessageToJson(result)
 
 ############## RECETA
@@ -107,7 +116,7 @@ def calificarReceta():
     receta = RecetaCliente()
     result = receta.calificarReceta(request.json)
     return MessageToJson(result)
-"""
+
 @app.route('/traerPorFiltro', methods=['GET'])
 @cross_origin()
 def traerPorFiltro():
@@ -140,8 +149,8 @@ def traerPorFiltro():
     }
     print(receta1)
     receta = RecetaCliente()
-    #result = receta.traerPorFiltro(receta1)
-    result = receta.traerPorFiltro(request.json)
+    result = receta.traerPorFiltro(receta1)
+    #result = receta.traerPorFiltro(request.json)
     return MessageToJson(result)
 
 """
@@ -151,6 +160,6 @@ def traerPorFiltro():
     receta = RecetaCliente()
     result = receta.traerPorFiltro(request.json)
     return MessageToJson(result)
-
+"""
 if __name__ == '__main__':
     app.run()
