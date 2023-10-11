@@ -3,9 +3,7 @@ package com.grupo.demo.services;
 import com.grupo.demo.constants.RecetaConstants;
 import com.grupo.demo.constants.UsuarioConstants;
 import com.grupo.demo.converters.RecetaConverter;
-import com.grupo.demo.dtos.RecetaDTO;
-import com.grupo.demo.dtos.ResponseData;
-import com.grupo.demo.dtos.UsuarioDTO;
+import com.grupo.demo.dtos.*;
 import com.grupo.demo.entities.*;
 import com.grupo.demo.repositories.IRecetaRepository;
 import com.grupo.demo.repositories.IUsuarioRepository;
@@ -172,10 +170,10 @@ public class RecetaService {
         ResponseData<UsuarioDTO> usuario = usuarioService.traerUsuarioPorId(id_usuario);
         ResponseData<RecetaDTO> receta = traerRecetaPorId(id_receta);
         if (!receta.isEmptyData() && !usuario.isEmptyData()) {
-            Comentarios com = new Comentarios(usuario.getData().getUsuario(), receta.getData().getTitulo(), comentario);
+            ComentariosDTO com = new ComentariosDTO(usuario.getData().getUsuario(), receta.getData().getTitulo(), comentario);
             comentariosService.save(com);
             if (id_usuario != receta.getData().getAutorId()){
-                PopularidadReceta rec = new PopularidadReceta(id_receta, 1);
+                PopularidadRecetaDTO rec = new PopularidadRecetaDTO(id_receta, 1);
                 popularidadRecetaService.save(rec);
             }
             return ResponseEntity.status(HttpStatus.CREATED).body("El comentario fue guardado.");
@@ -188,7 +186,7 @@ public class RecetaService {
         if (id_usuario == receta.getData().getAutorId()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario no puede calificar su propia receta.");
         }
-        PopularidadReceta rec = new PopularidadReceta(id_receta, calificacion);
+        PopularidadRecetaDTO rec = new PopularidadRecetaDTO(id_receta, calificacion);
         popularidadRecetaService.save(rec);
         return ResponseEntity.status(HttpStatus.CREATED).body("Su calificacion fue guardada.");
     }

@@ -1,7 +1,6 @@
 package com.grupo.demo.services;
 
-import com.grupo.demo.entities.PopularidadReceta;
-import com.grupo.demo.entities.PopularidadUsuario;
+import com.grupo.demo.dtos.PopularidadRecetaDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,8 +13,8 @@ public class PopularidadRecetaService {
         this.popularidadRecetaEventsService = popularidadRecetaEventsService;
     }
 
-    public PopularidadReceta save(PopularidadReceta popularidadReceta) {
-        this.popularidadRecetaEventsService.publish(popularidadReceta);
-        return popularidadReceta;
+    public PopularidadRecetaDTO save(PopularidadRecetaDTO popularidadRecetaDTO) {
+        this.popularidadRecetaEventsService.publish(popularidadRecetaDTO);
+        return popularidadRecetaDTO;
     }
 }

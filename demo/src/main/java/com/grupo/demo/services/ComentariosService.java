@@ -1,6 +1,6 @@
 package com.grupo.demo.services;
 
-import com.grupo.demo.entities.Comentarios;
+import com.grupo.demo.dtos.ComentariosDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +13,8 @@ public class ComentariosService {
         this.comentariosEventsService = comentariosEventsService;
     }
 
-    public Comentarios save(Comentarios comentarios) {
-        this.comentariosEventsService.publish(comentarios);
-        return  comentarios;
+    public ComentariosDTO save(ComentariosDTO comentariosDTO) {
+        this.comentariosEventsService.publish(comentariosDTO);
+        return comentariosDTO;
     }
 }

@@ -2,8 +2,7 @@ package com.grupo.demo.services;
 
 import com.grupo.demo.constants.UsuarioConstants;
 import com.grupo.demo.converters.UsuarioConverter;
-import com.grupo.demo.dtos.RecetaDTO;
-import com.grupo.demo.dtos.ResponseData;
+import com.grupo.demo.dtos.*;
 import com.grupo.demo.entities.*;
 import com.grupo.demo.repositories.IRecetaRepository;
 import com.grupo.demo.repositories.IUsuarioRepository;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.grupo.demo.dtos.UsuarioDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,16 +56,16 @@ public class UsuarioService {
         if (recetasFavoritas.contains(id_receta)){
             recetasFavoritas.remove(id_receta);
             body = "La receta fue desmarcada de favoritas.";
-            PopularidadReceta rec = new PopularidadReceta(id_receta, -1);
+            PopularidadRecetaDTO rec = new PopularidadRecetaDTO(id_receta, -1);
             popularidadRecetaService.save(rec);
-            PopularidadUsuario usu = new PopularidadUsuario(recetaService.traerNombreUsuarioAutor(id_receta), -1);
+            PopularidadUsuarioDTO usu = new PopularidadUsuarioDTO(recetaService.traerNombreUsuarioAutor(id_receta), -1);
             popularidadUsuarioService.save(usu);
         } else {
             usuario.getRecetasFavoritas().add(id_receta);
             body = "La receta fue marcada como favorita.";
-            PopularidadReceta rec = new PopularidadReceta(id_receta, 1);
+            PopularidadRecetaDTO rec = new PopularidadRecetaDTO(id_receta, 1);
             popularidadRecetaService.save(rec);
-            PopularidadUsuario usu = new PopularidadUsuario(recetaService.traerNombreUsuarioAutor(id_receta), 1);
+            PopularidadUsuarioDTO usu = new PopularidadUsuarioDTO(recetaService.traerNombreUsuarioAutor(id_receta), 1);
             popularidadUsuarioService.save(usu);
         }
         usuarioRepository.save(usuario);
@@ -84,12 +82,12 @@ public class UsuarioService {
         if (usuariosSeguidos.contains(id_usuario_seguido)){
             usuariosSeguidos.remove(id_usuario_seguido);
             body = "Se dejó de seguir al usuario.";
-            PopularidadUsuario user = new PopularidadUsuario(usuarioRepository.traerUsuarioPorId(id_usuario_seguido).getUsuario(), -1);
+            PopularidadUsuarioDTO user = new PopularidadUsuarioDTO(usuarioRepository.traerUsuarioPorId(id_usuario_seguido).getUsuario(), -1);
             popularidadUsuarioService.save(user);
         } else {
             usuario.getUsuariosSeguidos().add(id_usuario_seguido);
             body = "Se comenzó a seguir al usuario.";
-            PopularidadUsuario user = new PopularidadUsuario(usuarioRepository.traerUsuarioPorId(id_usuario_seguido).getUsuario(), 1);
+            PopularidadUsuarioDTO user = new PopularidadUsuarioDTO(usuarioRepository.traerUsuarioPorId(id_usuario_seguido).getUsuario(), 1);
             popularidadUsuarioService.save(user);
         }
         usuarioRepository.save(usuario);
